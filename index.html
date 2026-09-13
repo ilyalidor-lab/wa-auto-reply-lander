@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>מענה חכם בוואטסאפ | לעסקים קטנים</title>
+  <meta name="description" content="מענה מיידי ללקוחות בוואטסאפ — ואתה מקבל רק את מה שצריך אדם. פיילוט 14 יום לעסקים קטנים בישראל." />
+  <style>
+    :root {
+      --bg: #0b1220;
+      --card: #121a2b;
+      --text: #eef3ff;
+      --muted: #a9b4cc;
+      --accent: #3ddc97;
+      --accent2: #5b8cff;
+      --line: rgba(255,255,255,.08);
+      --danger: #ffb454;
+      --radius: 18px;
+      --shadow: 0 20px 50px rgba(0,0,0,.35);
+      --max: 1080px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 100% -10%, rgba(91,140,255,.25), transparent 55%),
+        radial-gradient(900px 500px at 0% 20%, rgba(61,220,151,.18), transparent 50%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    a { color: inherit; }
+    .wrap { width: min(var(--max), calc(100% - 2rem)); margin-inline: auto; }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(11,18,32,.75);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .9rem 0; gap: 1rem;
+    }
+    .brand { display: flex; align-items: center; gap: .7rem; font-weight: 700; }
+    .logo {
+      width: 36px; height: 36px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: grid; place-items: center; color: #062016; font-weight: 800;
+    }
+    .nav-cta {
+      text-decoration: none; background: var(--accent); color: #062016;
+      padding: .65rem 1rem; border-radius: 999px; font-weight: 700;
+    }
+    .hero { padding: 4.5rem 0 3rem; }
+    .hero-grid {
+      display: grid; gap: 2rem;
+      grid-template-columns: 1.2fr .8fr;
+      align-items: center;
+    }
+    @media (max-width: 860px) {
+      .hero-grid, .pricing, .features, .steps { grid-template-columns: 1fr !important; }
+    }
+    h1 { font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.15; margin: 0 0 1rem; }
+    .lead { color: var(--muted); font-size: 1.1rem; margin: 0 0 1.5rem; max-width: 38rem; }
+    .pills { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
+    .pill {
+      border: 1px solid var(--line); background: rgba(255,255,255,.03);
+      padding: .35rem .7rem; border-radius: 999px; color: var(--muted); font-size: .9rem;
+    }
+    .btn-row { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      text-decoration: none; border: 0; cursor: pointer;
+      padding: .85rem 1.2rem; border-radius: 999px; font-weight: 700; font-size: 1rem;
+    }
+    .btn-primary { background: var(--accent); color: #062016; }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--line); }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 1.25rem;
+    }
+    .stat { display: grid; gap: .35rem; padding: .85rem 0; border-bottom: 1px solid var(--line); }
+    .stat:last-child { border-bottom: 0; }
+    .stat strong { font-size: 1.35rem; }
+    .stat span { color: var(--muted); font-size: .92rem; }
+    section { padding: 3.2rem 0; }
+    .section-title { margin: 0 0 .5rem; font-size: clamp(1.6rem, 3vw, 2.2rem); }
+    .section-sub { margin: 0 0 1.75rem; color: var(--muted); max-width: 40rem; }
+    .features, .pricing, .steps {
+      display: grid; gap: 1rem;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .steps { grid-template-columns: repeat(5, 1fr); }
+    @media (max-width: 1100px) {
+      .steps { grid-template-columns: repeat(2, 1fr); }
+    }
+    .feature h3, .price h3, .step h3 { margin: 0 0 .5rem; font-size: 1.15rem; }
+    .feature p, .price p, .step p { margin: 0; color: var(--muted); }
+    .price.featured {
+      border-color: rgba(61,220,151,.45);
+      background: linear-gradient(180deg, rgba(61,220,151,.12), rgba(255,255,255,.02));
+    }
+    .price .amount { font-size: 2rem; font-weight: 800; margin: .6rem 0; }
+    .note {
+      margin-top: 1rem; color: var(--danger); font-size: .95rem;
+      border: 1px dashed rgba(255,180,84,.35); padding: .8rem 1rem; border-radius: 12px;
+    }
+    form { display: grid; gap: .8rem; }
+    label { display: grid; gap: .35rem; font-size: .92rem; color: var(--muted); }
+    input, textarea {
+      width: 100%; border-radius: 12px; border: 1px solid var(--line);
+      background: #0a101c; color: var(--text); padding: .85rem .9rem; font: inherit;
+    }
+    input:focus, textarea:focus { outline: 2px solid rgba(91,140,255,.45); border-color: transparent; }
+    footer {
+      border-top: 1px solid var(--line); padding: 2rem 0 3rem; color: var(--muted); font-size: .92rem;
+    }
+    .who { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .who span {
+      background: rgba(255,255,255,.04); border: 1px solid var(--line);
+      padding: .55rem .9rem; border-radius: 999px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo">ו</div>
+        <span>מענה חכם בוואטסאפ</span>
+      </div>
+      <a class="nav-cta" href="#contact">לפיילוט 14 יום</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="pills">
+            <span class="pill">לעסקים קטנים בישראל</span>
+            <span class="pill">עברית · קצר · ברור</span>
+            <span class="pill">הקמה תוך 3–5 ימים</span>
+          </div>
+          <h1>הלקוחות מקבלים מענה מיידי בוואטסאפ — ואתה מקבל רק את מה שצריך אדם.</h1>
+          <p class="lead">
+            בוט מענה חכם לשאלות נפוצות 24/7, עם העברה חכמה אליך כשיש ליד חם, תלונה או נושא מורכב.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="#contact">התחלת פיילוט ב־990 ₪</a>
+            <a class="btn btn-ghost" href="#pricing">לראות מחירים</a>
+          </div>
+        </div>
+        <aside class="card" aria-label="סיכום הצעה">
+          <div class="stat"><strong>24/7</strong><span>מענה לשאלות נפוצות</span></div>
+          <div class="stat"><strong>העברה לאדם</strong><span>רק לידים חמים / מקרים מורכבים</span></div>
+          <div class="stat"><strong>דוח שבועי</strong><span>כמות שיחות, העברות, שאלות חוזרות</span></div>
+          <div class="stat"><strong>3–5 ימים</strong><span>להקמה אחרי אישור</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="who">
+      <div class="wrap">
+        <h2 class="section-title">למי זה מתאים</h2>
+        <p class="section-sub">עסקים שמקבלים הרבה הודעות וואטסאפ ומתעכבים במענה — במיוחד מחוץ לשעות העבודה.</p>
+        <div class="who">
+          <span>מספרה / קליניקת יופי</span>
+          <span>מרפאה / קליניקה</span>
+          <span>חנות מקומית</span>
+          <span>נדל״ן</span>
+          <span>שירות שטח</span>
+          <span>עסק עם עומס פניות</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <h2 class="section-title">מה מקבלים</h2>
+        <p class="section-sub">חבילה ממוקדת — בלי הבטחות מנופחות ובלי תוספות שלא ביקשתם.</p>
+        <div class="features">
+          <article class="card feature">
+            <h3>בוט מענה 24/7</h3>
+            <p>שעות, מחיר, מיקום, זמינות ושאלות חוזרות — תשובה מיידית בעברית ובטון של העסק.</p>
+          </article>
+          <article class="card feature">
+            <h3>העברה לאדם</h3>
+            <p>כשיש ליד חם, תלונה או משהו מורכב — זה מגיע אליך (או למי שתגדיר) במקום להיתקע בבוט.</p>
+          </article>
+          <article class="card feature">
+            <h3>דוח שבועי קצר</h3>
+            <p>כמה שיחות נכנסו, כמה הועברו לאדם, ומה השאלות שחוזרות הכי הרבה.</p>
+          </article>
+        </div>
+        <p class="note">לא כלול בחבילה הבסיסית: פרסום ממומן, בניית אתר, או אינטגרציות ERP כבדות.</p>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="wrap">
+        <h2 class="section-title">מחירים</h2>
+        <p class="section-sub">שקיפות מלאה. אפשר להתחיל בפיילוט קצר לפני מנוי מלא.</p>
+        <div class="pricing">
+          <article class="card price featured">
+            <h3>פיילוט 14 יום</h3>
+            <div class="amount">990 ₪</div>
+            <p>התנסות מלאה. אם ממשיכים — נכנס למסלול הרגיל.</p>
+          </article>
+          <article class="card price">
+            <h3>הקמה חד־פעמית</h3>
+            <div class="amount">2,500 ₪</div>
+            <p>אפיון, עץ תשובות, חיבור וטון מותאם לעסק.</p>
+          </article>
+          <article class="card price">
+            <h3>מנוי חודשי</h3>
+            <div class="amount">790 ₪</div>
+            <p>תחזוקה, מענה שוטף ודוח שבועי.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="wrap">
+        <h2 class="section-title">איך זה עובד</h2>
+        <p class="section-sub">תהליך קצר וברור — בלי לסבך את העסק.</p>
+        <div class="steps">
+          <article class="card step"><h3>1. פנייה</h3><p>הודעה קצרה / שיחה ראשונה.</p></article>
+          <article class="card step"><h3>2. גילוי</h3><p>כמה הודעות ביום, מי עונה, מה מציק.</p></article>
+          <article class="card step"><h3>3. פיילוט</h3><p>14 יום עם מענה אמיתי.</p></article>
+          <article class="card step"><h3>4. אישור</h3><p>הסכמה קצרה + מקדמה.</p></article>
+          <article class="card step"><h3>5. עלייה לאוויר</h3><p>הקמה תוך 3–5 ימים.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap" style="display:grid;gap:1rem;grid-template-columns:1.1fr .9fr;align-items:start">
+        <div>
+          <h2 class="section-title">בואו נתחיל בפיילוט</h2>
+          <p class="section-sub">מלאו פרטים קצרים. השליחה נפתחת במייל מוכן ל־ilya.lidor@gmail.com — בלי מספרי וואטסאפ מזויפים ובלי הבטחות שווא.</p>
+          <div class="card">
+            <form id="lead-form">
+              <label>שם<input id="name" name="name" required placeholder="ישראל ישראלי" /></label>
+              <label>שם העסק<input id="business" name="business" required placeholder="קפה / מספרה / קליניקה" /></label>
+              <label>וואטסאפ / טלפון<input id="phone" name="phone" required placeholder="05X-XXXXXXX" /></label>
+              <label>הערה (רשות)<textarea id="note" name="note" rows="3" placeholder="כמה הודעות ביום בערך? מי עונה היום?"></textarea></label>
+              <button class="btn btn-primary" type="submit">שליחה למייל</button>
+            </form>
+            <p style="color:var(--muted);font-size:.9rem;margin:.9rem 0 0">
+              אפשר גם ישירות:
+              <a href="mailto:ilya.lidor@gmail.com?subject=%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%20%D7%9E%D7%A2%D7%A0%D7%94%20%D7%97%D7%9B%D7%9D%20%D7%91%D7%95%D7%95%D7%90%D7%98%D7%A1%D7%90%D7%A4">ilya.lidor@gmail.com</a>
+            </p>
+          </div>
+        </div>
+        <aside class="card">
+          <h3 style="margin-top:0">מה קורה אחרי השליחה</h3>
+          <p style="color:var(--muted)">חוזרים אליך לשיחת גילוי קצרה, ורק אז מתחילים פיילוט אם זה מתאים לשני הצדדים.</p>
+          <p style="color:var(--muted)">אין כאן המלצות לקוחות מזויפות ואין מספרי מכירות מומצאים — רק ההצעה עצמה.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      © <span id="y"></span> מענה חכם בוואטסאפ · ליצירת קשר: ilya.lidor@gmail.com
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    document.getElementById('lead-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('name').value.trim();
+      var business = document.getElementById('business').value.trim();
+      var phone = document.getElementById('phone').value.trim();
+      var note = document.getElementById('note').value.trim();
+      var subject = 'פיילוט מענה חכם בוואטסאפ — ' + business;
+      var body = [
+        'שם: ' + name,
+        'עסק: ' + business,
+        'וואטסאפ/טלפון: ' + phone,
+        'הערה: ' + (note || '—')
+      ].join('\n');
+      window.location.href = 'mailto:ilya.lidor@gmail.com'
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(body);
+    });
+  </script>
+</body>
+</html>
