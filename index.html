@@ -7,8 +7,8 @@
   <meta name="description" content="פיילוט 14 יום למענה אוטומטי בוואטסאפ לעסקים קטנים בישראל. 990 ₪." />
   <style>
     :root {
-      --bg: #f3efe6;
-      --bg-band: #ebe4d6;
+      --bg: #faf9f7;
+      --bg-band: #f0ebe3;
       --ink: #1a1a1a;
       --muted: #5c574e;
       --line: #d6d0c4;
@@ -56,6 +56,7 @@
       max-width: 34rem; margin: 0 0 1.5rem;
       font-family: "Segoe UI", Tahoma, Arial, sans-serif;
     }
+    .icp { margin: 0 0 1.25rem; color: var(--muted); font-size: .95rem; font-family: "Segoe UI", Tahoma, Arial, sans-serif; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
@@ -98,6 +99,38 @@
       background: transparent; color: var(--muted); font-size: .8rem; padding: .35rem 0;
     }
     section { padding: 4rem 0; }
+    .pull {
+      margin: 2rem 0 0;
+      padding: 1rem 1.1rem;
+      border-inline-start: 3px solid var(--ink);
+      font-size: clamp(1.25rem, 3vw, 1.55rem);
+      line-height: 1.35; max-width: 28ch;
+    }
+    .for-not {
+      display: grid; gap: 1rem; margin-top: 1.25rem;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    }
+    @media (min-width: 700px) {
+      .for-not { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    }
+    .for-not h3 {
+      margin: 0 0 .4rem; font-size: .8rem; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--muted);
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif; font-weight: 700;
+    }
+    .for-not p { margin: 0; color: var(--ink); font-size: .98rem; }
+    .proof-strip {
+      display: grid; gap: 0; margin-top: 1.5rem;
+      border-top: 1px solid var(--line);
+    }
+    .proof-strip div {
+      padding: 1.1rem 0; border-bottom: 1px solid var(--line);
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif; color: var(--muted);
+    }
+    .proof-strip strong {
+      display: block; color: var(--ink); margin-bottom: .3rem;
+      font-family: Georgia, "Times New Roman", serif; font-size: 1.15rem;
+    }
     h2 {
       font-size: clamp(1.8rem, 4vw, 2.4rem);
       line-height: 1.15; margin: 0 0 1rem; max-width: 16ch;
@@ -192,7 +225,7 @@
   <div class="wrap">
     <div class="topbar">
       <span class="mark">ו· מענה בוואטסאפ</span>
-      <a class="nav-cta link-quiet" href="#contact">פיילוט 14 יום</a>
+      <a class="nav-cta link-quiet" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20%D7%9C%D7%9E%D7%A2%D7%A0%D7%94%20%D7%90%D7%95%D7%98%D7%95%D7%9E%D7%98%D7%99%20%D7%91%D7%95%D7%95%D7%90%D7%98%D7%A1%D7%90%D7%A4%20%28990%20%E2%82%AA%29" target="_blank" rel="noopener">התחלת פיילוט</a>
     </div>
 
     <section class="hero">
@@ -202,10 +235,12 @@
         עד אז הוא כבר קבע אצל המתחרה — או פשוט ויתר.
         לא כי אין ביקוש. כי אין מי שעונה בזמן.
       </p>
+      <p class="icp">מספרה · קליניקה · חנות · נדל״ן · שירות שטח</p>
       <div class="hero-actions">
-        <a class="btn btn-ink" href="#contact">פיילוט 14 יום · 990 ₪</a>
+        <a class="btn btn-ink" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20%D7%9C%D7%9E%D7%A2%D7%A0%D7%94%20%D7%90%D7%95%D7%98%D7%95%D7%9E%D7%98%D7%99%20%D7%91%D7%95%D7%95%D7%90%D7%98%D7%A1%D7%90%D7%A4%20%28990%20%E2%82%AA%29" target="_blank" rel="noopener">התחלת פיילוט 14 יום · 990 ₪</a>
         <a class="link-quiet" href="#pricing">לראות את המסלול</a>
       </div>
+      <p class="pull">״הלקוחות מקבלים מענה מיידי בוואטסאפ — ואתה מקבל רק את מה שצריך אדם.״</p>
     </section>
   </div>
 
@@ -223,11 +258,17 @@
 
   <section>
     <div class="wrap">
-      <h2>למי זה</h2>
-      <p class="proof">
-        עסקים קטנים בישראל שמקבלים הרבה הודעות וואטסאפ ומתעכבים במענה — במיוחד מחוץ לשעות העבודה:
-        מספרה וקליניקת יופי, מרפאה, חנות מקומית, נדל״ן, שירות שטח, וכל עסק עם עומס פניות.
-      </p>
+      <h2>למי זה — ולמי לא</h2>
+      <div class="for-not">
+        <div>
+          <h3>מתאים</h3>
+          <p>מספרה, קליניקה, חנות, נדל״ן ושירות שטח עם עומס וואטסאפ — במיוחד מחוץ לשעות העבודה.</p>
+        </div>
+        <div>
+          <h3>לא מתאים</h3>
+          <p>כמעט בלי הודעות, מי שרוצה רק פרסום ממומן בלי לסדר מענה, או מחפש אינטגרציית ERP כבדה.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -266,7 +307,8 @@
             <li>העברה ללידים חמים</li>
             <li>סיכום בסוף הפיילוט</li>
           </ul>
-          <p>אם ממשיכים — עוברים להקמה ומנוי.</p>
+          <p>מענה אמיתי על המספר שלך — לא דמו.</p>
+          <p>אם ממשיכים — הפיילוט נכנס למסלול המנוי (הקמה + 790 ₪ לחודש).</p>
         </article>
         <div class="path-rule" aria-hidden="true"></div>
         <article class="price-step">
@@ -310,15 +352,16 @@
     <div class="contact-wrap">
       <p class="kicker">הצעד הבא</p>
       <h2>בקשה לפיילוט</h2>
-      <p class="proof">נחזור לשיחת גילוי קצרה. בלי לחץ ובלי הבטחות שווא. אין המלצות מזויפות בדף הזה.</p>
+      <p class="proof">הכפתור פותח וואטסאפ אליי עם ההודעה מוכנה. אפשר גם למלא פרטים למטה — ואשלח בוואטסאפ. בלי המלצות מזויפות.</p>
+      <p style="margin:0 0 1rem"><a class="btn btn-ink" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20%D7%9C%D7%9E%D7%A2%D7%A0%D7%94%20%D7%90%D7%95%D7%98%D7%95%D7%9E%D7%98%D7%99%20%D7%91%D7%95%D7%95%D7%90%D7%98%D7%A1%D7%90%D7%A4%20%28990%20%E2%82%AA%29" target="_blank" rel="noopener">התחלת פיילוט 14 יום · 990 ₪</a></p>
       <form id="lead-form" class="ui">
         <label>שם<input id="name" required autocomplete="name" /></label>
         <label>שם העסק<input id="business" required /></label>
-        <label>וואטסאפ / טלפון<input id="phone" required autocomplete="tel" /></label>
+        <label>וואטסאפ / טלפון שלך<input id="phone" required autocomplete="tel" /></label>
         <label>כמה הודעות ביום בערך? (רשות)<textarea id="note" rows="3" placeholder="למשל: 20–40, בעיקר אחרי 18:00"></textarea></label>
-        <button class="btn btn-ink btn-block" type="submit">שליחת בקשה לפיילוט</button>
+        <button class="btn btn-ink btn-block" type="submit">התחלת פיילוט 14 יום · 990 ₪</button>
       </form>
-      <p class="note">או ישירות: <a href="mailto:ilya.lidor@gmail.com">ilya.lidor@gmail.com</a></p>
+      <p class="note">משני: <a href="mailto:ilya.lidor@gmail.com">ilya.lidor@gmail.com</a></p>
     </div>
   </section>
 
@@ -327,7 +370,7 @@
   </div>
 
   <div class="sticky-cta" role="region" aria-label="פעולה מהירה">
-    <a href="#contact">פיילוט 14 יום · 990 ₪</a>
+    <a href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20%D7%9C%D7%9E%D7%A2%D7%A0%D7%94%20%D7%90%D7%95%D7%98%D7%95%D7%9E%D7%98%D7%99%20%D7%91%D7%95%D7%95%D7%90%D7%98%D7%A1%D7%90%D7%A4%20%28990%20%E2%82%AA%29" target="_blank" rel="noopener">התחלת פיילוט 14 יום · 990 ₪</a>
   </div>
 
   <script>
@@ -338,9 +381,8 @@
       var business = document.getElementById('business').value.trim();
       var phone = document.getElementById('phone').value.trim();
       var note = document.getElementById('note').value.trim();
-      var subject = 'פיילוט מענה וואטסאפ — ' + business;
-      var body = ['שם: ' + name, 'עסק: ' + business, 'וואטסאפ/טלפון: ' + phone, 'הערה: ' + (note || '—')].join('\n');
-      window.location.href = 'mailto:ilya.lidor@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      var text = ['בקשה לפיילוט 14 יום (990 ₪)', 'שם: ' + name, 'עסק: ' + business, 'טלפון לחזרה: ' + phone, 'הערה: ' + (note || '—')].join('\n');
+      window.open('https://wa.me/972533379700?text=' + encodeURIComponent(text), '_blank');
     });
   </script>
 </body>
