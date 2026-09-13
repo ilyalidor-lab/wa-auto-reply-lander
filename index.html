@@ -4,324 +4,255 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>מענה חכם בוואטסאפ</title>
-  <meta name="description" content="פיילוט 14 יום — מענה מיידי בוואטסאפ לעסקים. 990 ₪." />
+  <meta name="description" content="פיילוט 14 יום — מענה מיידי בוואטסאפ. 990 ₪." />
   <style>
     :root {
-      --navy: #071725;
-      --black: #050608;
-      --cyan: #20C8D5;
-      --mint: #65D9C5;
-      --lime: #D9E98F;
-      --yellow: #F6C84A;
-      --coral: #FF7048;
-      --orange: #F59A55;
-      --pink: #F52E70;
-      --red: #E5252B;
-      --peach: #FFC08B;
-      --cream: #F7F7F2;
-      --muted: rgba(247,247,242,.72);
+      --bg: #070b1a;
+      --bg-2: #0e1530;
+      --ink: #f7f4ff;
+      --muted: #b7b3d9;
+      --line: rgba(255,255,255,.12);
+      --coral: #ff5a7a;
+      --pink: #ff3db5;
+      --yellow: #ffe566;
+      --violet: #7a5cff;
+      --cyan: #4de1ff;
+      --accent: var(--coral);
+      --accent-ink: #1a0510;
+      --max: 760px;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
+      color: var(--ink);
       font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
-      color: var(--cream);
-      background: var(--black);
-      line-height: 1.45;
-      overflow-x: hidden;
+      background:
+        radial-gradient(900px 500px at 10% -10%, rgba(255,61,181,.35), transparent 55%),
+        radial-gradient(800px 480px at 95% 15%, rgba(122,92,255,.4), transparent 50%),
+        radial-gradient(700px 420px at 40% 110%, rgba(77,225,255,.2), transparent 45%),
+        var(--bg);
+      line-height: 1.5;
     }
     a { color: inherit; text-decoration: none; }
-    .noise {
-      pointer-events: none; position: fixed; inset: 0; z-index: 0; opacity: .18;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
-    }
-    .wrap { width: min(1100px, calc(100% - 2rem)); margin-inline: auto; position: relative; z-index: 1; }
+    .wrap { width: min(var(--max), calc(100% - 2rem)); margin-inline: auto; position: relative; }
     header {
-      position: relative; z-index: 2;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 1.1rem 0;
+      padding: 1.1rem 0; position: relative; z-index: 5;
     }
-    .brand {
-      font-weight: 900; letter-spacing: -.04em; font-size: 1.05rem;
-      display: flex; gap: .5rem; align-items: center;
-    }
-    .pill {
-      background: var(--pink); color: #fff; border-radius: 999px;
-      padding: .2rem .55rem; font-size: .7rem; font-weight: 800;
-    }
+    .mark { font-weight: 900; letter-spacing: -.03em; }
     .nav-cta {
-      background: var(--coral); color: #1a0500; font-weight: 900;
-      padding: .75rem 1rem; border-radius: 14px; transform: rotate(-1.5deg);
-      box-shadow: 6px 6px 0 #000;
+      background: linear-gradient(90deg, var(--coral), var(--pink));
+      color: #fff; font-weight: 900; border-radius: 999px;
+      padding: .75rem 1.1rem; min-height: 44px;
+      box-shadow: 0 10px 40px rgba(255,90,122,.35);
+      display: inline-flex; align-items: center;
     }
-    .hero {
-      display: grid; grid-template-columns: 1.15fr .95fr; gap: 1.5rem;
-      align-items: end; padding: 2rem 0 3rem; min-height: 78vh;
+    .hero { padding: clamp(2.5rem, 8vw, 5rem) 0 3rem; position: relative; overflow: visible; }
+    .orb {
+      position: absolute; width: 220px; height: 220px; border-radius: 50%;
+      background: rgba(255,90,122,.35); filter: blur(50px);
+      inset-inline-end: -40px; top: 20%; pointer-events: none; z-index: 0;
     }
-    @media (max-width: 900px) {
-      .hero, .grid3, .path { grid-template-columns: 1fr !important; }
-      .nav-cta { display: none; }
-      body { padding-bottom: 5rem; }
-      .sticky { display: block !important; }
-      .h1 { font-size: clamp(2.6rem, 14vw, 4.2rem) !important; }
+    .chip {
+      position: absolute; z-index: 1; pointer-events: none;
+      font-weight: 900; font-size: .8rem; padding: .45rem .75rem;
+      border-radius: 999px; white-space: nowrap;
     }
-    .aurora {
-      position: absolute; inset: -20% -10% auto -10%; height: 70vh; z-index: 0;
-      background:
-        radial-gradient(circle at 20% 40%, rgba(32,200,213,.45), transparent 40%),
-        radial-gradient(circle at 70% 30%, rgba(245,46,112,.28), transparent 42%),
-        radial-gradient(circle at 50% 70%, rgba(217,233,143,.2), transparent 45%),
-        linear-gradient(180deg, #071725 0%, #050608 70%);
-      filter: saturate(1.2);
-    }
-    .stars {
-      position: absolute; inset: 0; background-image:
-        radial-gradient(1px 1px at 10% 20%, #fff, transparent),
-        radial-gradient(1px 1px at 30% 80%, #fff, transparent),
-        radial-gradient(1.5px 1.5px at 70% 30%, #fff, transparent),
-        radial-gradient(1px 1px at 90% 60%, #fff, transparent),
-        radial-gradient(1px 1px at 50% 10%, #fff, transparent);
-      opacity: .55;
-    }
-    .eq {
-      display: flex; flex-wrap: wrap; gap: .55rem; align-items: center;
-      margin-bottom: 1.2rem; position: relative; z-index: 2;
-    }
-    .tile {
-      background: #111; border: 2px solid #000; border-radius: 16px;
-      padding: .55rem .8rem; font-weight: 900; font-size: .85rem;
-      box-shadow: 4px 4px 0 var(--cyan);
-    }
-    .tile.coral { background: var(--coral); color: #1a0500; box-shadow: 4px 4px 0 #000; }
-    .tile.yellow { background: var(--yellow); color: #1a1400; box-shadow: 4px 4px 0 #000; }
-    .h1 {
+    .chip.a { background: var(--yellow); color: #1a1400; top: 12%; inset-inline-start: 2%; transform: rotate(-3deg); }
+    .chip.b { background: var(--coral); color: #fff; top: 38%; inset-inline-end: 0; transform: rotate(4deg); }
+    .chip.c { border: 2px solid var(--pink); color: var(--pink); background: rgba(7,11,26,.6); bottom: 18%; inset-inline-start: 8%; transform: rotate(-2deg); }
+    .kicker {
+      display: inline-block; background: var(--yellow); color: #1a1400;
+      font-weight: 900; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+      padding: .35rem .65rem; border-radius: 999px; transform: rotate(-2deg); margin-bottom: 1rem;
       position: relative; z-index: 2;
-      font-size: clamp(3rem, 8vw, 5.6rem);
-      line-height: .92; letter-spacing: -.055em; font-weight: 900;
-      margin: 0 0 1rem; text-transform: uppercase;
-      max-width: 10ch;
     }
-    .h1 em {
-      font-style: normal; color: var(--coral);
-      text-shadow: 4px 4px 0 #000;
-    }
-    .h1 .y { color: var(--yellow); }
-    .lead {
+    h1 {
       position: relative; z-index: 2;
-      font-size: 1.15rem; color: var(--muted); max-width: 34rem; margin: 0 0 1.2rem;
-      font-weight: 600;
+      font-size: clamp(3rem, 11vw, 5.5rem); line-height: .95; font-weight: 900;
+      letter-spacing: -.045em; max-width: 11ch; margin: 0 0 1.1rem;
     }
-    .icp { position: relative; z-index: 2; color: var(--lime); font-weight: 800; margin: 0 0 1.4rem; }
-    .actions { position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: .8rem; }
+    h1 .hl { color: var(--yellow); }
+    .lead { position: relative; z-index: 2; color: var(--muted); font-size: 1.12rem; max-width: 34rem; margin: 0 0 1rem; font-weight: 600; }
+    .icp { position: relative; z-index: 2; color: var(--cyan); font-weight: 800; margin: 0 0 1.4rem; }
+    .actions { position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: .85rem; align-items: center; }
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
-      min-height: 52px; padding: .95rem 1.25rem; border-radius: 16px;
-      font-weight: 900; border: 2px solid #000; cursor: pointer; font-size: 1rem;
-      box-shadow: 6px 6px 0 #000; transform: rotate(-1deg);
+      background: linear-gradient(90deg, var(--coral), var(--pink));
+      color: #fff; font-weight: 900; border: 0; border-radius: 999px;
+      padding: 1rem 1.5rem; min-height: 52px;
+      box-shadow: 0 10px 40px rgba(255,90,122,.45); cursor: pointer; font-size: 1rem;
     }
-    .btn-main { background: var(--coral); color: #1a0500; }
-    .btn-alt { background: var(--yellow); color: #1a1400; transform: rotate(1deg); }
-    .stage {
-      position: relative; z-index: 2;
-      background: linear-gradient(160deg, var(--red), #9b1020 60%, #3a0610);
-      border: 3px solid #000; border-radius: 28px;
-      padding: 1.1rem; box-shadow: 12px 12px 0 #000;
-      transform: rotate(2deg);
-      min-height: 420px;
-      overflow: hidden;
+    .link-quiet { color: var(--yellow); border-bottom: 2px solid var(--yellow); font-weight: 800; }
+    .wa-strip {
+      background: #050814; border-block: 1px solid var(--line);
+      padding: clamp(2.2rem, 5vw, 3.5rem) 0; margin-top: 1rem;
     }
-    .chrome {
-      display: flex; gap: .4rem; margin-bottom: .9rem;
+    .wa-inner { width: min(880px, calc(100% - 2rem)); margin-inline: auto; position: relative; }
+    .sticker {
+      display: inline-block; background: var(--yellow); color: #1a1400;
+      font-weight: 900; font-size: .7rem; letter-spacing: .1em;
+      padding: .3rem .55rem; border-radius: 8px; transform: rotate(-3deg); margin-bottom: 1rem;
     }
-    .chrome i { width: 10px; height: 10px; border-radius: 50%; display: block; background: #ff5f57; }
-    .chrome i:nth-child(2) { background: #febc2e; }
-    .chrome i:nth-child(3) { background: #28c840; }
-    .stage h2 {
-      margin: 0 0 .6rem; font-size: clamp(1.8rem, 4vw, 2.6rem);
-      line-height: .95; letter-spacing: -.04em; font-weight: 900;
-      text-transform: uppercase; color: var(--yellow);
-      text-shadow: 3px 3px 0 #000;
+    .thread { max-width: 420px; margin-inline: auto; display: grid; gap: .55rem; }
+    .b { max-width: 86%; padding: .75rem .9rem; border-radius: 16px; font-size: .95rem; font-weight: 600; }
+    .in { justify-self: start; background: #1c2140; color: var(--ink); border-start-start-radius: 16px; border-start-end-radius: 16px; border-end-end-radius: 16px; border-end-start-radius: 4px; }
+    .out { justify-self: end; background: linear-gradient(135deg, rgba(255,90,122,.35), rgba(255,61,181,.25)); border: 1px solid rgba(255,90,122,.45); border-start-start-radius: 16px; border-start-end-radius: 16px; border-end-start-radius: 16px; border-end-end-radius: 4px; }
+    .sys { justify-self: center; color: var(--muted); font-size: .8rem; }
+    section { padding: clamp(3rem, 7vw, 5rem) 0; }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 900; letter-spacing: -.03em; margin: 0 0 1.2rem; }
+    .for-not { display: grid; gap: 1rem; }
+    @media (min-width: 700px) { .for-not { grid-template-columns: 1fr 1fr; gap: 1.25rem; } }
+    .panel { border-radius: 18px; padding: 1.25rem; background: rgba(14,21,48,.7); }
+    .panel.yes { border: 3px solid var(--cyan); }
+    .panel.no { border: 3px solid var(--pink); }
+    .panel h3 { margin: 0 0 .5rem; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
+    .panel p { margin: 0; color: var(--muted); font-weight: 600; }
+    .include-list { list-style: none; padding: 0; margin: 0; }
+    .include-list li {
+      padding: 1.15rem 0; border-bottom: 1px dashed var(--line);
+      color: var(--muted); font-weight: 600;
     }
-    .jar {
-      width: 150px; height: 190px; margin: 1rem auto 0;
-      background: linear-gradient(180deg, var(--peach), var(--orange) 40%, var(--red));
-      border: 3px solid #000; border-radius: 18px 18px 28px 28px;
-      position: relative; box-shadow: 8px 8px 0 rgba(0,0,0,.55);
-      transform: rotate(-8deg);
+    .include-list strong { display: block; color: var(--ink); font-size: 1.2rem; margin-bottom: .3rem; }
+    .note { color: var(--muted); margin-top: 1rem; font-weight: 600; }
+    .price-path { margin-top: 1rem; }
+    .price-step { padding: 1.5rem 0; border-bottom: 1px dashed var(--line); }
+    .price-step.start {
+      background: linear-gradient(135deg, rgba(255,90,122,.2), rgba(122,92,255,.2));
+      border: 2px solid var(--coral); border-radius: 20px;
+      padding: 1.5rem; transform: rotate(-0.5deg); margin-bottom: 1rem;
+      border-bottom: 2px solid var(--coral);
     }
-    .jar::before {
-      content: ""; position: absolute; top: -18px; left: 20%; right: 20%; height: 22px;
-      background: #222; border: 3px solid #000; border-radius: 8px;
+    .step-label { color: var(--cyan); font-weight: 900; letter-spacing: .12em; font-size: .75rem; text-transform: uppercase; }
+    .amount { font-size: clamp(3rem, 9vw, 4.5rem); font-weight: 900; color: var(--yellow); margin: .35rem 0; letter-spacing: -.04em; }
+    .price-step h3 { margin: 0; font-size: 1.35rem; }
+    .price-list { margin: .5rem 0 0; padding-inline-start: 1.1rem; color: var(--muted); font-weight: 600; }
+    .how-list { list-style: none; padding: 0; margin: 0; counter-reset: how; }
+    .how-list li {
+      display: grid; grid-template-columns: 3.2rem 1fr; gap: .8rem;
+      padding: 1.1rem 0; border-bottom: 1px dashed var(--line);
     }
-    .jar span {
-      position: absolute; inset: 35% 12% auto; text-align: center;
-      font-weight: 900; font-size: .85rem; color: #1a0500; line-height: 1.1;
+    .how-list li::before {
+      counter-increment: how; content: counter(how, decimal-leading-zero);
+      font-size: 1.6rem; font-weight: 900; color: var(--yellow); letter-spacing: -.04em;
     }
-    .float-tag {
-      position: absolute; left: 8%; bottom: 12%;
-      background: var(--pink); color: #fff; font-weight: 900;
-      padding: .45rem .7rem; border-radius: 999px; border: 2px solid #000;
-      transform: rotate(-6deg); font-size: .8rem;
-    }
-    section { padding: 3.5rem 0; position: relative; z-index: 1; }
-    .sec-title {
-      font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900;
-      letter-spacing: -.04em; text-transform: uppercase; margin: 0 0 1.2rem;
-      line-height: .95;
-    }
-    .sec-title span { color: var(--cyan); }
-    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-    .card {
-      background: #0d1520; border: 3px solid #000; border-radius: 22px;
-      padding: 1.2rem; box-shadow: 8px 8px 0 var(--pink);
-      transform: rotate(-1deg);
-    }
-    .card:nth-child(2) { transform: rotate(1.2deg); box-shadow: 8px 8px 0 var(--cyan); }
-    .card:nth-child(3) { transform: rotate(-.5deg); box-shadow: 8px 8px 0 var(--yellow); }
-    .card h3 { margin: 0 0 .4rem; font-size: 1.25rem; font-weight: 900; }
-    .card p { margin: 0; color: var(--muted); font-weight: 600; }
-    .split {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
-    }
-    @media (max-width: 700px) { .split { grid-template-columns: 1fr; } }
-    .yes, .no {
-      border: 3px solid #000; border-radius: 22px; padding: 1.2rem;
-    }
-    .yes { background: rgba(32,200,213,.15); box-shadow: 8px 8px 0 var(--mint); }
-    .no { background: rgba(245,46,112,.12); box-shadow: 8px 8px 0 var(--pink); }
-    .yes h3, .no h3 { margin: 0 0 .5rem; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; font-size: .85rem; }
-    .path { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-    .step {
-      background: #101820; border: 3px solid #000; border-radius: 22px; padding: 1.2rem;
-      box-shadow: 8px 8px 0 #000;
-    }
-    .step.start {
-      background: linear-gradient(160deg, rgba(255,112,72,.35), #101820 55%);
-      box-shadow: 8px 8px 0 var(--coral);
-      transform: rotate(-1deg);
-    }
-    .step .n { font-weight: 900; color: var(--lime); letter-spacing: .08em; font-size: .75rem; }
-    .amt { font-size: clamp(2.4rem, 5vw, 3.4rem); font-weight: 900; letter-spacing: -.04em; margin: .35rem 0; color: var(--yellow); text-shadow: 3px 3px 0 #000; }
-    .step ul { margin: .5rem 0 0; padding-inline-start: 1.1rem; color: var(--muted); font-weight: 600; }
-    .how { border-top: 2px solid rgba(255,255,255,.12); }
-    .how div {
-      display: grid; grid-template-columns: 3.5rem 1fr; gap: .8rem;
-      padding: 1.1rem 0; border-bottom: 2px solid rgba(255,255,255,.12); align-items: start;
-    }
-    .how b {
-      width: 2.6rem; height: 2.6rem; border-radius: 12px; display: grid; place-items: center;
-      background: var(--pink); color: #fff; border: 2px solid #000; font-weight: 900;
-    }
-    .contact {
-      background: linear-gradient(135deg, rgba(245,46,112,.2), rgba(32,200,213,.15));
-      border: 3px solid #000; border-radius: 28px; padding: 1.4rem;
-      box-shadow: 12px 12px 0 var(--yellow);
-    }
+    .how-list strong { display: block; margin-bottom: .2rem; }
+    .how-list span { color: var(--muted); font-weight: 600; }
+    .contact { max-width: 520px; margin-inline: auto; }
     form { display: grid; gap: .7rem; margin-top: 1rem; }
-    label { display: grid; gap: .3rem; font-size: .85rem; font-weight: 800; color: var(--muted); }
+    label { display: grid; gap: .3rem; font-size: .85rem; color: var(--muted); font-weight: 800; }
     input, textarea {
-      width: 100%; border-radius: 14px; border: 3px solid #000;
-      background: #0a1018; color: var(--cream);
-      padding: .9rem 1rem; font: inherit; font-size: 16px; font-weight: 700;
+      width: 100%; border-radius: 14px; border: 1px solid var(--line);
+      background: #0a1024; color: var(--ink); padding: .9rem 1rem; font: inherit; font-size: 16px;
     }
-    .btn-block { width: 100%; transform: none; }
     .btn-outline {
-      width: 100%; min-height: 48px; border-radius: 14px; border: 3px solid #000;
-      background: transparent; color: var(--cream); font-weight: 900; cursor: pointer;
+      width: 100%; min-height: 48px; border-radius: 999px; border: 2px solid var(--ink);
+      background: transparent; color: var(--ink); font-weight: 900; cursor: pointer;
     }
-    footer { padding: 2rem 0 3rem; color: var(--muted); font-weight: 700; }
-    .sticky {
-      display: none; position: fixed; inset-inline: 0; bottom: 0; z-index: 50;
-      padding: .7rem 1rem calc(.7rem + env(safe-area-inset-bottom));
-      background: #050608ee; border-top: 2px solid #000;
-    }
-    .sticky a {
-      display: block; text-align: center; background: var(--coral); color: #1a0500;
-      font-weight: 900; border-radius: 14px; border: 2px solid #000; padding: .85rem;
-      box-shadow: 4px 4px 0 #000;
+    footer { padding: 2rem 0 3rem; color: var(--muted); font-weight: 700; border-top: 1px solid var(--line); margin-top: 1rem; }
+    .sticky-cta { display: none; }
+    @media (max-width: 860px) {
+      .sticky-cta {
+        display: block; position: fixed; inset-inline: 0; bottom: 0; z-index: 40;
+        background: #050814; border-top: 1px solid rgba(255,255,255,.12);
+        padding: .65rem 1rem calc(.65rem + env(safe-area-inset-bottom));
+      }
+      .sticky-cta a {
+        display: block; text-align: center;
+        background: linear-gradient(90deg, var(--coral), var(--pink));
+        color: #fff; font-weight: 900; border-radius: 999px; padding: .9rem 1rem;
+      }
+      header .nav-cta { display: none; }
+      body { padding-bottom: 5rem; }
+      .chip { display: none; }
     }
   </style>
 </head>
 <body>
-  <div class="noise"></div>
-  <div class="aurora"><div class="stars"></div></div>
-
   <div class="wrap">
     <header>
-      <div class="brand">מענה חכם <span class="pill">IL</span></div>
+      <div class="mark">מענה חכם</div>
       <a class="nav-cta" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20(990%20%E2%82%AA)" target="_blank" rel="noopener">פיילוט · 990 ₪</a>
     </header>
 
     <section class="hero">
-      <div>
-        <div class="eq">
-          <span class="tile">וואטסאפ</span>
-          <span class="tile yellow">+</span>
-          <span class="tile coral">מענה חכם</span>
-          <span class="tile">= 🔥</span>
-        </div>
-        <h1 class="h1">הלקוח כתב ב־<em>21:40</em>.<br><span class="y">ענית בבוקר.</span></h1>
-        <p class="lead">מענה מיידי לשאלות נפוצות — ואתה מקבל רק לידים חמים. בלי הצפה. בלי דמו במצגת.</p>
-        <p class="icp">מספרה · קליניקה · חנות · נדל״ן · שירות שטח</p>
-        <div class="actions">
-          <a class="btn btn-main" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20(990%20%E2%82%AA)" target="_blank" rel="noopener">התחלת פיילוט 14 יום · 990 ₪</a>
-          <a class="btn btn-alt" href="#pricing">המסלול</a>
-        </div>
+      <div class="orb"></div>
+      <span class="chip a">24/7</span>
+      <span class="chip b">ליד חם</span>
+      <span class="chip c">העברה לאדם</span>
+      <div class="kicker">פיילוט 14 יום · ישראל</div>
+      <h1>הלקוח כתב ב־<span class="hl">21:40</span>. ענית בבוקר.</h1>
+      <p class="lead">מענה מיידי בוואטסאפ לשאלות נפוצות — ואתה מקבל רק לידים חמים ותלונות.</p>
+      <p class="icp">מספרה · קליניקה · חנות · נדל״ן · שירות שטח</p>
+      <div class="actions">
+        <a class="btn" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20(990%20%E2%82%AA)" target="_blank" rel="noopener">התחלת פיילוט 14 יום · 990 ₪</a>
+        <a class="link-quiet" href="#pricing">המסלול</a>
       </div>
-      <aside class="stage" aria-label="תצוגת מוצר">
-        <div class="chrome"><i></i><i></i><i></i></div>
-        <h2>הלקוח מקבל תשובה.<br>אתה מקבל ליד.</h2>
-        <div class="jar"><span>מענה<br>24/7</span></div>
-        <div class="float-tag">↓ ליד חם אליך</div>
-      </aside>
+    </section>
+  </div>
+
+  <section class="wa-strip" id="demo">
+    <div class="wa-inner">
+      <div class="sticker">LIVE DEMO</div>
+      <div class="thread">
+        <div class="b in">היי, יש תור למחר בערב?</div>
+        <div class="b out">כן — 18:30 או 19:15. מה נוח?</div>
+        <div class="b in">18:30 מעולה</div>
+        <div class="sys">↓ ליד חם הועבר אליך</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section>
+      <h2>למי כן — ולמי לא</h2>
+      <div class="for-not">
+        <div class="panel yes"><h3>מתאים</h3><p>מספרה, קליניקה, חנות, נדל״ן ושירות שטח עם עומס וואטסאפ — במיוחד מחוץ לשעות.</p></div>
+        <div class="panel no"><h3>לא מתאים</h3><p>כמעט בלי הודעות · רק פרסום ממומן · ERP כבד.</p></div>
+      </div>
     </section>
 
     <section>
-      <h2 class="sec-title">למי <span>כן</span> / למי לא</h2>
-      <div class="split">
-        <div class="yes"><h3>מתאים</h3><p>עסקים עם עומס וואטסאפ שמפספסים פניות אחרי שעות.</p></div>
-        <div class="no"><h3>לא מתאים</h3><p>כמעט בלי הודעות · רק פרסום ממומן · ERP כבד.</p></div>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="sec-title">מה <span>מקבלים</span></h2>
-      <div class="grid3">
-        <article class="card"><h3>מענה 24/7</h3><p>שעות, מחיר, מיקום, זמינות — בעברית ובטון של העסק.</p></article>
-        <article class="card"><h3>העברה לאדם</h3><p>ליד חם / תלונה / מורכב מגיע אליך.</p></article>
-        <article class="card"><h3>דוח שבועי</h3><p>שיחות, העברות, שאלות שחוזרות.</p></article>
-      </div>
-      <p class="lead" style="margin-top:1.2rem">לא כלול: פרסום ממומן, בניית אתר, אינטגרציות ERP.</p>
+      <h2>מה מקבלים</h2>
+      <ol class="include-list">
+        <li><strong>מענה 24/7</strong> שעות, מחיר, מיקום, זמינות — בעברית ובטון של העסק.</li>
+        <li><strong>העברה לאדם</strong> ליד חם / תלונה / מורכב מגיע אליך.</li>
+        <li><strong>דוח שבועי</strong> שיחות, העברות, שאלות שחוזרות.</li>
+      </ol>
+      <p class="note">לא כלול: פרסום ממומן, בניית אתר, אינטגרציות ERP.</p>
     </section>
 
     <section id="pricing">
-      <h2 class="sec-title">המסלול <span>הברור</span></h2>
-      <div class="path">
-        <article class="step start">
-          <div class="n">01 · התחלה</div>
-          <div class="amt">990 ₪</div>
-          <p>פיילוט 14 יום על המספר שלך</p>
-          <ul>
+      <h2>המסלול</h2>
+      <div class="price-path">
+        <article class="price-step start">
+          <div class="step-label">01 · להתחיל</div>
+          <h3>פיילוט 14 יום</h3>
+          <p class="amount">990 ₪</p>
+          <ul class="price-list">
+            <li>מענה אמיתי על המספר שלך</li>
             <li>עץ תשובות ראשוני</li>
             <li>העברת לידים חמים</li>
             <li>סיכום בסוף</li>
           </ul>
-          <p class="lead" style="margin:.7rem 0 0;font-size:.95rem">אם ממשיכים — נכנס למסלול המנוי.</p>
+          <p class="note">אם ממשיכים — הפיילוט נכנס למסלול המנוי.</p>
         </article>
-        <article class="step">
-          <div class="n">02 · הקמה</div>
-          <div class="amt">2,500 ₪</div>
-          <ul>
+        <article class="price-step">
+          <div class="step-label">02 · הקמה</div>
+          <h3>הקמה חד־פעמית</h3>
+          <p class="amount">2,500 ₪</p>
+          <ul class="price-list">
             <li>אפיון מלא</li>
             <li>חיבור + בדיקות</li>
             <li>עלייה לאוויר</li>
           </ul>
         </article>
-        <article class="step">
-          <div class="n">03 · שוטף</div>
-          <div class="amt">790 ₪</div>
-          <ul>
+        <article class="price-step">
+          <div class="step-label">03 · שוטף</div>
+          <h3>מנוי חודשי</h3>
+          <p class="amount">790 ₪</p>
+          <ul class="price-list">
             <li>תחזוקה</li>
             <li>דוח שבועי</li>
             <li>תיקוני ניסוח</li>
@@ -331,20 +262,20 @@
     </section>
 
     <section>
-      <h2 class="sec-title">איך זה <span>עובד</span></h2>
-      <div class="how">
-        <div><b>1</b><div><strong>וואטסאפ או פרטים</strong><br><span class="lead" style="margin:0">כפתור ישיר / טופס קצר</span></div></div>
-        <div><b>2</b><div><strong>שיחת גילוי</strong><br><span class="lead" style="margin:0">כמה הודעות, מי עונה, מה מציק</span></div></div>
-        <div><b>3</b><div><strong>פיילוט 14 יום</strong><br><span class="lead" style="margin:0">מענה אמיתי — לא דמו</span></div></div>
-        <div><b>4</b><div><strong>החלטה + עלייה</strong><br><span class="lead" style="margin:0">אישור, מקדמה, הקמה תוך 3–5 ימים</span></div></div>
-      </div>
+      <h2>איך זה עובד</h2>
+      <ol class="how-list">
+        <li><div><strong>וואטסאפ או פרטים</strong><span>כפתור ישיר / טופס קצר</span></div></li>
+        <li><div><strong>שיחת גילוי</strong><span>כמה הודעות, מי עונה, מה מציק</span></div></li>
+        <li><div><strong>פיילוט 14 יום</strong><span>מענה אמיתי — לא דמו</span></div></li>
+        <li><div><strong>החלטה + עלייה</strong><span>אישור, מקדמה, הקמה תוך 3–5 ימים</span></div></li>
+      </ol>
     </section>
 
     <section id="contact">
       <div class="contact">
-        <h2 class="sec-title" style="margin-bottom:.5rem">נתחיל?</h2>
+        <h2>נתחיל?</h2>
         <p class="lead">הכפתור פותח וואטסאפ אליי. בלי המלצות מזויפות.</p>
-        <p><a class="btn btn-main" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20(990%20%E2%82%AA)" target="_blank" rel="noopener">התחלת פיילוט 14 יום · 990 ₪</a></p>
+        <p><a class="btn" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20(990%20%E2%82%AA)" target="_blank" rel="noopener">התחלת פיילוט 14 יום · 990 ₪</a></p>
         <form id="lead-form">
           <label>שם<input id="name" required autocomplete="name" /></label>
           <label>עסק<input id="business" required /></label>
@@ -352,14 +283,14 @@
           <label>הערה<textarea id="note" rows="3"></textarea></label>
           <button class="btn-outline" type="submit">שליחת פרטים בוואטסאפ</button>
         </form>
-        <p class="lead" style="margin-top:.9rem;font-size:.9rem">משני: <a href="mailto:ilya.lidor@gmail.com">ilya.lidor@gmail.com</a></p>
+        <p class="note">משני: <a href="mailto:ilya.lidor@gmail.com">ilya.lidor@gmail.com</a></p>
       </div>
     </section>
 
-    <footer>© <span id="y"></span> מענה חכם · בלי הבטחות שווא</footer>
+    <footer>© <span id="y"></span> מענה חכם</footer>
   </div>
 
-  <div class="sticky"><a href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20(990%20%E2%82%AA)" target="_blank" rel="noopener">התחלת פיילוט · 990 ₪</a></div>
+  <div class="sticky-cta"><a href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20(990%20%E2%82%AA)" target="_blank" rel="noopener">התחלת פיילוט · 990 ₪</a></div>
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
