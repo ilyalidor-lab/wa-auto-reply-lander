@@ -86,6 +86,7 @@
       letter-spacing: -.01em;
     }
     .thread {
+      margin-inline: auto;
       background: var(--surface);
       border: 1px solid var(--line);
       border-radius: 12px;
@@ -244,9 +245,9 @@
       <div class="wrap">
         <h2 class="reveal">מה מקבלים</h2>
         <ol class="clean">
-          <li class="reveal"><span class="n">1</span><span>שעות, מחיר, מיקום, זמינות — נענים 24/7 בעברית ובטון של העסק. בלי שתחזיק את הטלפון ביד.</span></li>
-          <li class="reveal"><span class="n">2</span><span>ליד שרוצה לקבוע / לקנות / להתלונן — לא נשאר בבוט. מגיע אליך.</span></li>
-          <li class="reveal"><span class="n">3</span><span>פעם בשבוע: כמה שיחות, כמה הגיעו אליך, מה שואלים שוב ושוב.</span></li>
+          <li class="reveal"><span class="n">1</span><span><strong>מענה 24/7</strong> — שעות, מחיר, מיקום, זמינות בעברית ובטון של העסק. בלי שתחזיק את הטלפון ביד.</span></li>
+          <li class="reveal"><span class="n">2</span><span><strong>העברה לאדם</strong> — ליד שרוצה לקבוע / לקנות / להתלונן לא נשאר בבוט. מגיע אליך.</span></li>
+          <li class="reveal"><span class="n">3</span><span><strong>דוח שבועי</strong> — כמה שיחות, כמה הגיעו אליך, מה שואלים שוב ושוב.</span></li>
         </ol>
       </div>
     </section>
@@ -288,7 +289,7 @@
           <label>עסק<input id="business" required /></label>
           <label>טלפון לחזרה<input id="phone" required autocomplete="tel" /></label>
           <label>הערה<textarea id="note" rows="3" placeholder="כמה הודעות ביום בערך?"></textarea></label>
-          <button class="btn" type="submit" style="width:100%">בקשת פיילוט</button>
+          <button class="btn btn-soft" type="submit" style="width:100%">בקשת פיילוט</button>
         </form>
         <p class="muted reveal" style="margin-top:1rem;font-size:.9rem">
           משני: <a href="mailto:ilya.lidor@gmail.com">ilya.lidor@gmail.com</a><br />
@@ -309,7 +310,7 @@
         'שם: ' + document.getElementById('name').value.trim(),
         'עסק: ' + document.getElementById('business').value.trim(),
         'טלפון: ' + document.getElementById('phone').value.trim(),
-        'הערה: ' + (document.getElementById('note').value.trim() || '—')].join('\\n');
+        'הערה: ' + (document.getElementById('note').value.trim() || '—')].join('\n');
       window.open('https://wa.me/972533379700?text=' + encodeURIComponent(text), '_blank');
     });
 
