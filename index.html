@@ -9,11 +9,11 @@
     :root {
       --bg: #050505;
       --ink: #f5f5f5;
-      --muted: #9a9a9a;
+      --muted: #c6c6c6;
       --accent: #c8ff3d;
       --accent-ink: #0a0a0a;
-      --panel: #111111;
-      --line: rgba(255,255,255,.1);
+      --panel: rgba(12,12,12,.72);
+      --line: rgba(255,255,255,.14);
       --wa: #25d366;
     }
     * { box-sizing: border-box; }
@@ -32,11 +32,11 @@
       position: fixed; inset-inline: 0; top: 0; z-index: 50;
       display: flex; justify-content: space-between; align-items: center;
       padding: .85rem 1.1rem;
-      background: linear-gradient(180deg, rgba(5,5,5,.92), rgba(5,5,5,0));
+      background: linear-gradient(180deg, rgba(5,5,5,.88), rgba(5,5,5,0));
       pointer-events: none;
     }
     header a, header .mark { pointer-events: auto; }
-    .mark { font-weight: 900; letter-spacing: -.03em; }
+    .mark { font-weight: 900; letter-spacing: -.03em; text-shadow: 0 2px 12px rgba(0,0,0,.6); }
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
       background: var(--accent); color: var(--accent-ink);
@@ -45,15 +45,14 @@
     }
     .btn-wa {
       background: var(--wa); color: #062016;
-      box-shadow: 0 10px 40px rgba(37,211,102,.25);
+      box-shadow: 0 10px 40px rgba(37,211,102,.28);
     }
     .btn-soft {
-      background: transparent; color: var(--ink);
-      border: 1px solid var(--line);
+      background: rgba(0,0,0,.35); color: var(--ink);
+      border: 1px solid var(--line); backdrop-filter: blur(8px);
     }
     .header-cta { min-height: 40px; padding: .55rem .9rem; font-size: .9rem; border-radius: 12px; }
 
-    /* REEL */
     .reel { position: relative; }
     .reel-sticky {
       position: sticky; top: 0; height: 100vh; height: 100dvh;
@@ -64,37 +63,67 @@
       position: absolute; inset: 0;
       display: grid; place-items: center;
       padding: 4.5rem 1.25rem 5.5rem;
-      opacity: 0; transform: translateY(28px) scale(.98);
+      opacity: 0; transform: translateY(24px) scale(.985);
       transition: opacity .4s ease, transform .4s ease;
       pointer-events: none;
+      overflow: hidden;
     }
     .scene.is-active { opacity: 1; transform: none; pointer-events: auto; }
+    .scene-bg {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.08);
+      transition: transform 1.1s ease;
+      z-index: 0;
+    }
+    .scene.is-active .scene-bg { transform: scale(1); }
+    .scene-shade {
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        linear-gradient(180deg, rgba(5,5,5,.55) 0%, rgba(5,5,5,.72) 45%, rgba(5,5,5,.88) 100%),
+        radial-gradient(ellipse at center, rgba(5,5,5,.15), rgba(5,5,5,.75));
+    }
     .scene-inner {
+      position: relative; z-index: 2;
+      will-change: opacity, transform;
       width: min(720px, 100%);
       text-align: center;
     }
     .scene-title, h1 {
       margin: 0;
-      font-size: clamp(2.8rem, 12vw, 5rem);
+      font-size: clamp(2.6rem, 11vw, 4.6rem);
       font-weight: 900;
       letter-spacing: -.04em;
       line-height: .98;
+      text-shadow: 0 8px 40px rgba(0,0,0,.55);
     }
     .scene-sub {
       margin: 1rem auto 0;
       color: var(--muted);
-      font-size: clamp(1rem, 3.2vw, 1.2rem);
+      font-size: clamp(1rem, 3.2vw, 1.15rem);
       max-width: 28rem;
+      text-shadow: 0 2px 16px rgba(0,0,0,.7);
     }
-    .scene-art {
-      margin: 1.2rem auto 0;
-      width: min(340px, 78vw);
-      border-radius: 22px;
+    .glass {
+      margin: 1.15rem auto 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 1rem;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+    }
+    .related-shot {
+      margin: 1rem auto 0;
+      width: min(360px, 86vw);
+      border-radius: 18px;
       overflow: hidden;
       border: 1px solid var(--line);
-      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      box-shadow: 0 16px 40px rgba(0,0,0,.4);
     }
-    .scene-art img { width: 100%; height: auto; }
+    .related-shot img { width: 100%; height: auto; }
     .reel-track { height: calc(5 * 100vh); height: calc(5 * 100dvh); }
 
     .dots {
@@ -104,21 +133,16 @@
     }
     .dots button {
       width: 8px; height: 8px; border-radius: 50%;
-      border: 0; padding: 0; background: rgba(255,255,255,.25); cursor: pointer;
+      border: 0; padding: 0; background: rgba(255,255,255,.35); cursor: pointer;
     }
     .dots button.on { background: var(--accent); transform: scale(1.25); }
 
-    /* DEMO THREAD */
     .thread {
-      margin: 1.1rem auto 0;
       width: min(420px, 100%);
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 1rem;
+      margin-inline: auto;
       display: grid; gap: .5rem;
       text-align: start;
-      min-height: 280px;
+      min-height: 240px;
     }
     .b {
       max-width: 88%; padding: .7rem .85rem; border-radius: 14px;
@@ -127,7 +151,7 @@
       transition: opacity .35s ease, transform .35s ease;
     }
     .b.show { opacity: 1; transform: none; }
-    .b.them { justify-self: start; background: #222; }
+    .b.them { justify-self: start; background: rgba(40,40,40,.95); }
     .b.us { justify-self: end; background: #146b4a; }
     .b.sys {
       justify-self: center; max-width: 100%; text-align: center;
@@ -135,22 +159,22 @@
       padding: .2rem 0;
     }
 
-    .fit {
-      display: grid; gap: .8rem; margin-top: 1.2rem; text-align: start;
-    }
+    .fit { display: grid; gap: .7rem; text-align: start; }
     .fit div {
-      background: var(--panel); border: 1px solid var(--line);
+      background: rgba(10,10,10,.55);
+      border: 1px solid var(--line);
       border-radius: 16px; padding: 1rem 1.1rem;
     }
-    .fit strong { display: block; font-size: 1.4rem; margin-bottom: .35rem; }
+    .fit strong { display: block; font-size: 1.35rem; margin-bottom: .3rem; }
     .fit .yes strong { color: var(--accent); }
-    .fit .no strong { color: #ff7a7a; }
+    .fit .no strong { color: #ff8a8a; }
     .fit p { margin: 0; color: var(--muted); font-size: .95rem; }
 
     .price {
       font-size: clamp(3.2rem, 14vw, 6rem);
       font-weight: 900; letter-spacing: -.05em; line-height: 1;
       color: var(--accent); margin: .6rem 0 0;
+      text-shadow: 0 8px 30px rgba(0,0,0,.5);
     }
     .tags {
       display: flex; flex-wrap: wrap; justify-content: center; gap: .45rem;
@@ -159,13 +183,15 @@
     .tag {
       border: 1px solid var(--line); border-radius: 999px;
       padding: .4rem .8rem; font-size: .85rem; font-weight: 700;
+      background: rgba(0,0,0,.35); backdrop-filter: blur(6px);
     }
 
-    /* AFTER REEL */
     .after {
       padding: 3rem 1.25rem 5rem;
       border-top: 1px solid var(--line);
-      background: #080808;
+      background:
+        linear-gradient(180deg, rgba(5,5,5,.75), #080808 40%),
+        url("assets/bg-shop-afterhours.png") center/cover fixed;
     }
     .after-inner { width: min(560px, 100%); margin-inline: auto; }
     .after h2 {
@@ -179,19 +205,19 @@
     }
     .gallery figure {
       margin: 0; border-radius: 14px; overflow: hidden;
-      border: 1px solid var(--line); background: var(--panel);
+      border: 1px solid var(--line); background: #111;
     }
-    .gallery img { width: 100%; height: 140px; object-fit: cover; }
+    .gallery img { width: 100%; height: 150px; object-fit: cover; }
     form { display: grid; gap: .65rem; margin-top: 1rem; }
     label { display: grid; gap: .25rem; font-size: .82rem; color: var(--muted); text-align: start; }
     input, textarea {
       width: 100%; border-radius: 12px; border: 1px solid var(--line);
-      background: #111; color: var(--ink); padding: .85rem .95rem;
+      background: rgba(10,10,10,.75); color: var(--ink); padding: .85rem .95rem;
       font: inherit; font-size: 16px;
     }
     footer {
-      text-align: center; color: var(--muted); font-size: .85rem;
-      padding: 0 1rem 2rem;
+      text-align: center; color: #8f8f8f; font-size: .85rem;
+      padding: 0 1rem 2rem; background: #080808;
     }
     .sticky-cta {
       position: fixed; inset-inline: 0; bottom: 0; z-index: 45;
@@ -210,16 +236,14 @@
     @media (max-width: 899px) {
       .header-cta { display: none; }
     }
-
-    /* reduced motion: stack scenes normally */
     @media (prefers-reduced-motion: reduce) {
-      .reel-sticky {
-        position: relative; height: auto; display: block; overflow: visible;
-      }
+      .reel-sticky { position: relative; height: auto; display: block; overflow: visible; }
       .scene {
         position: relative; opacity: 1; transform: none; pointer-events: auto;
         padding: 3rem 1.25rem; border-bottom: 1px solid var(--line);
+        min-height: 100vh;
       }
+      .scene-bg { transform: none !important; }
       .reel-track { display: none; }
       .b { opacity: 1; transform: none; }
       .sticky-cta { transform: none; }
@@ -244,53 +268,56 @@
   <section class="reel" id="reel">
     <div class="reel-sticky">
       <div class="scene is-active" data-scene="0">
+        <div class="scene-bg" style="background-image:url('assets/bg-salon-night.png')"></div>
+        <div class="scene-shade"></div>
         <div class="scene-inner">
           <h1>בלילה הוא כותב.<br /><span class="accent">בבוקר הוא אצל המתחרה.</span></h1>
           <p class="scene-sub">מענה אוטומטי בוואטסאפ — עונה מיד, ומעביר אליך רק ליד חם.</p>
-          <figure class="scene-art">
-            <img src="assets/night-missed-lead.png" alt="לילה — ליד שבורח" />
-          </figure>
         </div>
       </div>
 
       <div class="scene" data-scene="1">
+        <div class="scene-bg" style="background-image:url('assets/bg-wa-chat-phone.png')"></div>
+        <div class="scene-shade"></div>
         <div class="scene-inner">
           <div class="scene-title" style="font-size:clamp(2rem,8vw,3.2rem)">כך זה נראה</div>
-          <div class="thread" id="thread" aria-label="הדגמת וואטסאפ">
-            <div class="b them" data-i="0">היי, אתם פתוחים מחר בערב?</div>
-            <div class="b us" data-i="1">כן, עד 19:00. רוצים תור?</div>
-            <div class="b them" data-i="2">אפשר ב־18:30?</div>
-            <div class="b us" data-i="3">שמתי לך. מאשרים?</div>
-            <div class="b sys" data-i="4">ליד חם → אליך</div>
+          <div class="glass">
+            <div class="thread" id="thread" aria-label="הדגמת וואטסאפ">
+              <div class="b them" data-i="0">היי, אתם פתוחים מחר בערב?</div>
+              <div class="b us" data-i="1">כן, עד 19:00. רוצים תור?</div>
+              <div class="b them" data-i="2">אפשר ב־18:30?</div>
+              <div class="b us" data-i="3">שמתי לך. מאשרים?</div>
+              <div class="b sys" data-i="4">ליד חם → אליך</div>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="scene" data-scene="2">
+        <div class="scene-bg" style="background-image:url('assets/bg-shop-afterhours.png')"></div>
+        <div class="scene-shade"></div>
         <div class="scene-inner">
           <div class="scene-title">למי כן. למי לא.</div>
-          <div class="fit">
+          <div class="glass fit">
             <div class="yes"><strong>כן</strong><p>מספרה, קליניקה, חנות, נדל״ן, שירות שטח — הרבה וואטסאפ, בלי מי שעונה בזמן.</p></div>
             <div class="no"><strong>לא</strong><p>כמעט אין הודעות, או שאתה מחפש רק פרסום ממומן בלי מענה אמיתי.</p></div>
           </div>
-          <figure class="scene-art" style="margin-top:1rem">
-            <img src="assets/verticals-icons.png" alt="מספרה קליניקה חנות" />
-          </figure>
         </div>
       </div>
 
       <div class="scene" data-scene="3">
+        <div class="scene-bg" style="background-image:url('assets/related-salon-tools.png')"></div>
+        <div class="scene-shade"></div>
         <div class="scene-inner">
           <div class="scene-title">פיילוט 14 יום</div>
           <div class="price">990 ₪</div>
           <p class="scene-sub">מענה אמיתי על המספר שלך. אם ממשיכים: הקמה 2,500 ₪ · מנוי 790 ₪ לחודש.</p>
-          <figure class="scene-art">
-            <img src="assets/handoff-glow.png" alt="העברת ליד חם" />
-          </figure>
         </div>
       </div>
 
       <div class="scene" data-scene="4">
+        <div class="scene-bg" style="background-image:url('assets/bg-salon-night.png')"></div>
+        <div class="scene-shade"></div>
         <div class="scene-inner">
           <div class="scene-title">רוצה לבדוק על העסק שלך?</div>
           <p class="scene-sub">בלי המלצות מזויפות. בלי מספרי מכירות מומצאים.</p>
@@ -312,8 +339,9 @@
       <h2>ארבעה צעדים. בלי מצגות.</h2>
       <p style="color:var(--muted);margin:0 0 1rem">כותבים → שיחת גילוי → פיילוט 14 יום → החלטה. הקמה תוך 3–5 ימים אם ממשיכים.</p>
       <div class="gallery">
-        <figure><img src="assets/hero-phone-glow.png" alt="טלפון פעיל" /></figure>
-        <figure><img src="assets/night-missed-lead.png" alt="לילה בעסק" /></figure>
+        <figure><img src="assets/bg-wa-chat-phone.png" alt="שיחת וואטסאפ לקביעת תור" /></figure>
+        <figure><img src="assets/bg-shop-afterhours.png" alt="חנות סגורה בלילה עם טלפון פעיל" /></figure>
+        <figure style="grid-column:1/-1"><img src="assets/related-salon-tools.png" alt="מספריים, יומן והודעת וואטסאפ" style="height:200px;object-fit:cover;width:100%" /></figure>
       </div>
       <a class="btn btn-wa" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20(990%20%E2%82%AA)" target="_blank" rel="noopener" style="width:100%">התחלת פיילוט · 990 ₪</a>
       <form id="lead-form">
@@ -382,8 +410,26 @@
         var total = reel.offsetHeight - window.innerHeight;
         var scrolled = Math.min(total, Math.max(0, -rect.top));
         var p = total > 0 ? scrolled / total : 0;
-        var i = Math.min(n - 1, Math.floor(p * n));
+        var raw = p * n;
+        var i = Math.min(n - 1, Math.floor(raw));
+        var tfrac = raw - i;
         if (i !== active) setScene(i);
+        scenes.forEach(function (s, idx) {
+          var inner = s.querySelector('.scene-inner');
+          if (!inner) return;
+          if (idx === i) {
+            var e = tfrac < 0.5 ? (tfrac * 2) : 1;
+            var op = 0.4 + 0.6 * e;
+            var ty = (1 - e) * 18;
+            inner.style.opacity = String(op);
+            inner.style.transform = 'translateY(' + ty + 'px)';
+          } else if (idx === active) {
+            /* leave */
+          } else {
+            inner.style.opacity = '';
+            inner.style.transform = '';
+          }
+        });
       }
 
       window.addEventListener('scroll', onScroll, { passive: true });
