@@ -151,7 +151,26 @@
       background: transparent; color: var(--ink); font-weight: 900; cursor: pointer;
     }
     footer { padding: 2rem 0 3rem; color: var(--muted); font-weight: 700; border-top: 1px solid var(--line); margin-top: 1rem; }
+    .chip-row { display: none; flex-wrap: wrap; gap: .35rem; margin: 0 0 .9rem; position: relative; z-index: 2; }
     .sticky-cta { display: none; }
+    h2 .stick {
+      display: inline-block; background: var(--yellow); color: #1a1400;
+      font-weight: 900; font-size: .65rem; letter-spacing: .1em;
+      padding: .25rem .5rem; border-radius: 8px; transform: rotate(-2deg);
+      margin-inline-end: .5rem; vertical-align: middle;
+    }
+    .how-list span { display: block; margin-top: .2rem; }
+    @media (max-width: 1000px) {
+      .chip { display: none; }
+      .chip-row { display: flex; }
+      .chip-row .chip {
+        display: inline-block; position: relative; inset: auto; top: auto; bottom: auto;
+        inset-inline: auto; font-size: .68rem; padding: .3rem .55rem; margin: 0;
+      }
+      .chip-row .chip.a { transform: rotate(-2deg); }
+      .chip-row .chip.b { transform: rotate(2deg); }
+      .chip-row .chip.c { transform: rotate(-1deg); }
+    }
     @media (max-width: 860px) {
       .sticky-cta {
         display: block; position: fixed; inset-inline: 0; bottom: 0; z-index: 40;
@@ -165,7 +184,6 @@
       }
       header .nav-cta { display: none; }
       body { padding-bottom: 5rem; }
-      .chip { display: none; }
     }
   </style>
 </head>
@@ -182,6 +200,11 @@
       <span class="chip b">ליד חם</span>
       <span class="chip c">העברה לאדם</span>
       <div class="kicker">פיילוט 14 יום · ישראל</div>
+      <div class="chip-row" aria-hidden="true">
+        <span class="chip a">24/7</span>
+        <span class="chip b">ליד חם</span>
+        <span class="chip c">העברה לאדם</span>
+      </div>
       <h1>הלקוח כתב ב־<span class="hl">21:40</span>. ענית בבוקר.</h1>
       <p class="lead">מענה מיידי בוואטסאפ לשאלות נפוצות — ואתה מקבל רק לידים חמים ותלונות.</p>
       <p class="icp">מספרה · קליניקה · חנות · נדל״ן · שירות שטח</p>
@@ -194,7 +217,7 @@
 
   <section class="wa-strip" id="demo">
     <div class="wa-inner">
-      <div class="sticker">LIVE DEMO</div>
+      <div class="sticker">דמו חי</div>
       <div class="thread">
         <div class="b in">היי, יש תור למחר בערב?</div>
         <div class="b out">כן — 18:30 או 19:15. מה נוח?</div>
@@ -214,7 +237,7 @@
     </section>
 
     <section>
-      <h2>מה מקבלים</h2>
+      <h2><span class="stick">מה בפנים</span> מה מקבלים</h2>
       <ol class="include-list">
         <li><strong>מענה 24/7</strong> שעות, מחיר, מיקום, זמינות — בעברית ובטון של העסק.</li>
         <li><strong>העברה לאדם</strong> ליד חם / תלונה / מורכב מגיע אליך.</li>
@@ -224,7 +247,7 @@
     </section>
 
     <section id="pricing">
-      <h2>המסלול</h2>
+      <h2><span class="stick">המסלול</span> מחירים</h2>
       <div class="price-path">
         <article class="price-step start">
           <div class="step-label">01 · להתחיל</div>
