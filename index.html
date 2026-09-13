@@ -7,325 +7,327 @@
   <meta name="description" content="פיילוט 14 יום למענה אוטומטי בוואטסאפ לעסקים קטנים בישראל. 990 ₪." />
   <style>
     :root {
-      --paper: #f3efe6;
-      --ink: #1a1510;
-      --muted: #5c5348;
-      --line: #d9d0c2;
-      --green: #0b6b4f;
-      --green-soft: #d8efe6;
-      --white: #fffdf8;
+      --bg: #f3efe6;
+      --bg-band: #ebe4d6;
+      --ink: #1a1a1a;
+      --muted: #5c574e;
+      --line: #d6d0c4;
+      --accent: #1a1a1a;
+      --wa-green: #1f6b4a;
+      --bubble-in: #fff;
+      --bubble-out: #dcefe6;
       --max: 720px;
+      --max-wide: 960px;
+      --form: 520px;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      background: var(--paper);
+      background: var(--bg);
       color: var(--ink);
       font-family: Georgia, "Times New Roman", "Noto Serif Hebrew", serif;
       line-height: 1.55;
-      padding-bottom: 88px;
     }
-    .sans { font-family: "Segoe UI", "Heebo", Arial, sans-serif; }
+    .ui, .btn, .nav, label, input, textarea, .bubble, .price-list,
+    footer, .kicker, .step-label, .sticky-cta, .wa-kicker, .topbar, .proof {
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    }
     a { color: inherit; }
     .wrap { width: min(var(--max), calc(100% - 2rem)); margin-inline: auto; }
     .topbar {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1rem 0; border-bottom: 1px solid var(--line);
-      font-family: "Segoe UI", "Heebo", Arial, sans-serif;
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 1.1rem 0; border-bottom: 1px solid var(--line);
       font-size: .9rem; color: var(--muted);
     }
-    .topbar strong { color: var(--ink); letter-spacing: .02em; }
+    .mark { color: var(--ink); font-weight: 800; letter-spacing: .04em; }
+    .hero { padding: 3.5rem 0 2rem; }
     .kicker {
-      font-family: "Segoe UI", "Heebo", Arial, sans-serif;
-      font-size: .8rem; font-weight: 700; letter-spacing: .08em;
-      text-transform: uppercase; color: var(--green); margin: 2.2rem 0 .8rem;
+      font-size: .75rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--muted); margin: 0 0 .9rem;
     }
     h1 {
-      font-size: clamp(2.4rem, 8vw, 3.6rem);
-      line-height: 1.05; font-weight: 700;
-      margin: 0 0 1.1rem; letter-spacing: -.02em;
+      font-size: clamp(2.6rem, 8vw, 4.5rem);
+      line-height: 1.05; letter-spacing: -.02em;
+      max-width: 12ch; margin: 0 0 1.1rem;
     }
-    .deck {
-      font-size: 1.2rem; color: var(--muted);
-      margin: 0 0 1.6rem; max-width: 36rem;
+    .lead {
+      font-size: 1.15rem; color: var(--muted);
+      max-width: 34rem; margin: 0 0 1.5rem;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
     }
-    .hero-actions {
-      display: flex; flex-wrap: wrap; gap: .7rem;
-      font-family: "Segoe UI", "Heebo", Arial, sans-serif;
-      margin-bottom: 2rem;
-    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
-      min-height: 48px; padding: .85rem 1.2rem; border-radius: 999px;
-      text-decoration: none; border: 0; cursor: pointer; font-weight: 700; font-size: 1rem;
+      min-height: 48px; padding: .85rem 1.25rem;
+      border-radius: 4px; border: 0; cursor: pointer;
+      font-weight: 700; font-size: 1rem; text-decoration: none;
     }
-    .btn-main { background: var(--green); color: #fff; }
-    .btn-main:hover { filter: brightness(.95); }
-    .btn-link {
-      background: transparent; color: var(--ink);
-      border: 1px solid var(--line); border-radius: 999px;
+    .btn-ink { background: var(--accent); color: #f3efe6; }
+    .link-quiet {
+      color: var(--ink); text-underline-offset: 3px;
+      font-size: .95rem;
     }
-    .price-chip {
-      display: inline-block;
-      font-family: "Segoe UI", "Heebo", Arial, sans-serif;
-      background: var(--green-soft); color: var(--green);
-      font-weight: 700; padding: .35rem .7rem; border-radius: 999px;
-      margin-bottom: 1rem; font-size: .9rem;
+    .wa-strip {
+      background: var(--bg-band);
+      border-block: 1px solid var(--line);
+      padding: 2.5rem 0;
+      margin: 1rem 0 0;
     }
-    .rule { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
-    .chat-strip {
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 1.1rem;
-      margin: 1.5rem 0 2rem;
-      font-family: "Segoe UI", "Heebo", Arial, sans-serif;
+    .wa-strip-inner { width: min(var(--max-wide), calc(100% - 2rem)); margin-inline: auto; }
+    .wa-kicker {
+      text-align: center; font-size: .75rem; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+      margin: 0 0 1.2rem;
     }
-    .chat-label {
-      font-size: .75rem; font-weight: 700; letter-spacing: .06em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: .9rem;
+    .wa-thread { max-width: 420px; margin-inline: auto; display: grid; gap: .55rem; }
+    .bubble {
+      max-width: 88%; padding: .75rem .9rem; font-size: .95rem; line-height: 1.4;
     }
-    .row { display: grid; gap: .55rem; }
-    .b {
-      max-width: 85%; padding: .75rem .9rem; border-radius: 14px;
-      font-size: .98rem; line-height: 1.4;
+    .bubble.in {
+      justify-self: start; background: var(--bubble-in);
+      border: 1px solid var(--line); border-radius: 12px 12px 4px 12px;
     }
-    .b.them { background: #ece7dc; justify-self: start; border-bottom-right-radius: 4px; }
-    .b.us { background: var(--green-soft); justify-self: end; border-bottom-left-radius: 4px; }
-    .b.sys {
+    .bubble.out {
+      justify-self: end; background: var(--bubble-out); color: var(--ink);
+      border-radius: 12px 12px 12px 4px;
+      border: 1px solid rgba(31,107,74,.15);
+    }
+    .bubble.sys {
       justify-self: center; max-width: 100%; text-align: center;
-      background: transparent; color: var(--muted); font-size: .82rem; padding: .2rem 0;
+      background: transparent; color: var(--muted); font-size: .8rem; padding: .35rem 0;
     }
+    section { padding: 4rem 0; }
     h2 {
-      font-size: clamp(1.6rem, 4vw, 2.1rem);
-      line-height: 1.15; margin: 0 0 .8rem;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      line-height: 1.15; margin: 0 0 1rem; max-width: 16ch;
     }
-    p { margin: 0 0 1rem; }
-    .story p { font-size: 1.08rem; }
-    .pain {
-      border-right: 4px solid var(--green);
-      padding: .2rem 1rem .2rem 0;
-      margin: 1.4rem 0;
-      color: var(--ink);
-      font-size: 1.15rem;
+    .proof { color: var(--muted); font-size: 1.05rem; margin: 0; }
+    .include-list { list-style: none; padding: 0; margin: 1.5rem 0 0; }
+    .include-list li {
+      padding: 1.25rem 0; border-bottom: 1px solid var(--line); font-size: 1.1rem;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif; color: var(--muted);
     }
-    .path {
-      list-style: none; padding: 0; margin: 1.2rem 0 0;
-      font-family: "Segoe UI", "Heebo", Arial, sans-serif;
+    .include-list strong {
+      display: block; font-size: 1.35rem; margin-bottom: .35rem;
+      color: var(--ink); font-family: Georgia, "Times New Roman", serif;
     }
-    .path li {
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 1rem 1.1rem;
-      margin-bottom: .75rem;
+    .note {
+      margin-top: 1.25rem; color: var(--muted); font-size: .95rem;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      border-top: 1px dashed var(--line); padding-top: 1rem;
     }
-    .path .n {
-      display: inline-block; font-size: .75rem; font-weight: 800;
-      color: var(--green); letter-spacing: .06em; margin-bottom: .35rem;
+    .price-path { display: grid; gap: 0; margin-top: 1.5rem; }
+    .price-step { padding: 1.75rem 0; }
+    .price-step.start {
+      border-inline-start: 3px solid var(--ink);
+      padding-inline-start: 1rem;
     }
-    .path strong { display: block; font-size: 1.15rem; margin-bottom: .25rem; }
-    .path span { color: var(--muted); font-size: .95rem; }
-    .path .amt {
-      display: block; margin-top: .55rem;
-      font-size: 1.55rem; font-weight: 800; color: var(--ink);
+    .path-rule { height: 1px; background: var(--line); }
+    .step-label {
+      font-size: .75rem; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: .35rem;
     }
-    .path li.start {
-      border-color: var(--green);
-      background: linear-gradient(180deg, var(--green-soft), var(--white));
+    .price-step h3 {
+      margin: 0; font-size: 1.45rem;
+      font-family: Georgia, "Times New Roman", serif;
     }
-    .include {
-      margin: .6rem 0 0; padding: 0; list-style: none; color: var(--muted); font-size: .9rem;
+    .amount {
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      margin: .4rem 0 .7rem; letter-spacing: -.02em;
     }
-    .include li::before { content: "– "; color: var(--green); }
-    .steps-oline {
-      font-family: "Segoe UI", "Heebo", Arial, sans-serif;
-      border-top: 1px solid var(--line);
-      margin-top: 1rem;
+    .price-list {
+      margin: 0; padding-inline-start: 1.1rem; color: var(--muted); font-size: .95rem;
     }
-    .steps-oline div {
-      display: grid; grid-template-columns: 2.2rem 1fr;
-      gap: .6rem; padding: 1rem 0;
-      border-bottom: 1px solid var(--line);
-      align-items: start;
+    .price-step > p {
+      margin: .5rem 0 0; color: var(--muted);
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
     }
-    .steps-oline b {
-      width: 2rem; height: 2rem; border-radius: 50%;
-      background: var(--ink); color: var(--paper);
-      display: grid; place-items: center; font-size: .85rem;
+    .how-list {
+      list-style: none; padding: 0; margin: 1.5rem 0 0; counter-reset: how;
     }
-    details.faq {
-      font-family: "Segoe UI", "Heebo", Arial, sans-serif;
-      border-bottom: 1px solid var(--line);
-      padding: .9rem 0;
+    .how-list li {
+      display: grid; grid-template-columns: 3rem 1fr; gap: .85rem;
+      padding: 1.1rem 0; border-bottom: 1px solid var(--line);
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
     }
-    details.faq summary {
-      cursor: pointer; font-weight: 700; list-style: none;
+    .how-list li::before {
+      counter-increment: how; content: counter(how, decimal-leading-zero);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.6rem; line-height: 1; color: var(--ink);
     }
-    details.faq summary::-webkit-details-marker { display: none; }
-    details.faq p { color: var(--muted); margin: .55rem 0 0; }
-    form {
-      display: grid; gap: .75rem;
-      font-family: "Segoe UI", "Heebo", Arial, sans-serif;
-      background: var(--white); border: 1px solid var(--line);
-      border-radius: 18px; padding: 1.1rem; margin-top: 1rem;
-    }
+    .how-list strong { display: block; color: var(--ink); margin-bottom: .2rem; font-size: 1.05rem; }
+    .how-list span { color: var(--muted); }
+    .contact-wrap { width: min(var(--form), calc(100% - 2rem)); margin-inline: auto; }
+    form { display: grid; gap: .75rem; margin-top: 1.2rem; }
     label { display: grid; gap: .3rem; font-size: .88rem; color: var(--muted); }
     input, textarea {
-      width: 100%; border: 1px solid var(--line); border-radius: 10px;
-      background: var(--paper); color: var(--ink);
-      padding: .85rem .9rem; font: inherit; font-size: 16px;
+      width: 100%; border: 1px solid var(--line); border-radius: 4px;
+      background: #fff; color: var(--ink); padding: .85rem .9rem;
+      font: inherit; font-size: 16px;
     }
-    input:focus, textarea:focus { outline: 2px solid rgba(11,107,79,.35); border-color: transparent; }
-    .fine { color: var(--muted); font-size: .9rem; font-family: "Segoe UI", "Heebo", Arial, sans-serif; }
+    input:focus, textarea:focus { outline: 2px solid rgba(26,26,26,.35); border-color: transparent; }
+    .btn-block { width: 100%; }
     footer {
-      margin: 3rem 0 1rem; padding-top: 1rem;
-      border-top: 1px solid var(--line);
+      border-top: 1px solid var(--line); padding: 1.5rem 0 2rem;
       color: var(--muted); font-size: .85rem;
-      font-family: "Segoe UI", "Heebo", Arial, sans-serif;
     }
-    .sticky-cta {
-      position: fixed; inset-inline: 0; bottom: 0; z-index: 30;
-      background: rgba(26,21,16,.94);
-      color: #fff;
-      padding: .75rem 1rem;
-      font-family: "Segoe UI", "Heebo", Arial, sans-serif;
-      display: flex; gap: .75rem; align-items: center; justify-content: center;
-      flex-wrap: wrap;
-    }
-    .sticky-cta span { font-size: .92rem; opacity: .9; }
-    .sticky-cta a {
-      background: #fff; color: var(--ink); text-decoration: none;
-      font-weight: 800; padding: .7rem 1rem; border-radius: 999px; min-height: 44px;
-      display: inline-flex; align-items: center;
+    .sticky-cta { display: none; }
+    @media (max-width: 860px) {
+      .sticky-cta {
+        display: block; position: fixed; inset-inline: 0; bottom: 0; z-index: 30;
+        padding: .75rem 1rem calc(.75rem + env(safe-area-inset-bottom));
+        background: var(--ink); border-top: 1px solid #000;
+      }
+      .sticky-cta a {
+        display: block; text-align: center; color: #f3efe6;
+        font-weight: 700; text-decoration: none;
+      }
+      body { padding-bottom: 4.5rem; }
+      .nav-cta { display: none; }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="topbar sans">
-      <strong>מענה בוואטסאפ לעסקים</strong>
-      <span>פיילוט 14 יום · ישראל</span>
+    <div class="topbar">
+      <span class="mark">ו· מענה בוואטסאפ</span>
+      <a class="nav-cta link-quiet" href="#contact">פיילוט 14 יום</a>
     </div>
 
-    <p class="kicker">הבעיה האמיתית</p>
-    <h1>הלקוח כתב בשעה 21:40.<br>ענית רק בבוקר.</h1>
-    <p class="deck">
-      עד אז הוא כבר קבע אצל המתחרה — או פשוט ויתר.
-      עסקים קטנים בישראל מפסידים פניות בוואטסאפ לא כי אין ביקוש, אלא כי אין מי שעונה בזמן.
-    </p>
-    <div class="price-chip">פיילוט 14 יום · 990 ₪</div>
-    <div class="hero-actions">
-      <a class="btn btn-main" href="#go">רוצה לנסות 14 יום</a>
-      <a class="btn btn-link" href="#how">איך זה עובד</a>
-    </div>
-
-    <div class="chat-strip" aria-label="דוגמה לשיחה">
-      <div class="chat-label">כך זה נראה אצלך בוואטסאפ</div>
-      <div class="row">
-        <div class="b them">היי, יש תור למחר בערב?</div>
-        <div class="b us">היי, כן — יש פנוי מחר ב־18:30 או ב־19:15. מה נוח לך?</div>
-        <div class="b them">18:30 מעולה</div>
-        <div class="b sys">↓ ליד חם הועבר אליך לאישור / סגירה</div>
-      </div>
-    </div>
-
-    <hr class="rule" />
-
-    <section class="story">
-      <p class="kicker">מה בעצם קורה</p>
-      <h2>אתה לא צריך בוט שמדבר כמו רובוט.<br>אתה צריך מישהו שעונה במקומך — ורק מעיר אותך כשצריך אדם.</h2>
-      <p class="pain">
-        רוב העסקים עונים מאוחר, שוכחים הודעות, או נותנים לעובד אחד לשאת את כל העומס.
+    <section class="hero">
+      <p class="kicker">עסקים קטנים · ישראל</p>
+      <h1>הלקוח כתב בשעה 21:40. ענית רק בבוקר.</h1>
+      <p class="lead">
+        עד אז הוא כבר קבע אצל המתחרה — או פשוט ויתר.
+        לא כי אין ביקוש. כי אין מי שעונה בזמן.
       </p>
-      <p>
-        אנחנו שמים על הוואטסאפ שלך מענה בעברית ובטון של העסק:
-        שעות, מחירים, מיקום, זמינות — מייד.
-        ליד חם, תלונה, או משהו מסובך — מגיע אליך.
-      </p>
-    </section>
-
-    <hr class="rule" />
-
-    <section id="offer">
-      <p class="kicker">המסלול</p>
-      <h2>לא חבילת ענן מנופחת. שלושה מספרים ברורים.</h2>
-      <ol class="path">
-        <li class="start">
-          <span class="n">התחלה</span>
-          <strong>פיילוט 14 יום</strong>
-          <span>מענה אמיתי על המספר שלך. רואים אם זה חוסך זמן ומחזיר פניות.</span>
-          <span class="amt">990 ₪</span>
-          <ul class="include">
-            <li>עץ תשובות ראשוני בטון העסק</li>
-            <li>העברה לאדם על לידים חמים</li>
-            <li>סיכום בסוף הפיילוט</li>
-          </ul>
-        </li>
-        <li>
-          <span class="n">אם ממשיכים</span>
-          <strong>הקמה חד־פעמית</strong>
-          <span>אפיון, עץ תשובות מלא, חיבור יציב.</span>
-          <span class="amt">2,500 ₪</span>
-        </li>
-        <li>
-          <span class="n">שוטף</span>
-          <strong>מנוי חודשי</strong>
-          <span>תחזוקה, תיקוני ניסוח לפי שאלות חוזרות, דוח שבועי קצר.</span>
-          <span class="amt">790 ₪</span>
-        </li>
-      </ol>
-      <p class="fine">לא כלול: פרסום ממומן, בניית אתר, אינטגרציות ERP כבדות.</p>
-    </section>
-
-    <hr class="rule" />
-
-    <section id="how">
-      <p class="kicker">התהליך</p>
-      <h2>ארבעה צעדים. בלי מצגות.</h2>
-      <div class="steps-oline">
-        <div><b>1</b><div><strong>אתה משאיר פרטים</strong><br><span class="fine">שם, עסק, וואטסאפ.</span></div></div>
-        <div><b>2</b><div><strong>שיחת גילוי קצרה</strong><br><span class="fine">כמה הודעות ביום, מי עונה היום, מה הכי מציק.</span></div></div>
-        <div><b>3</b><div><strong>פיילוט 14 יום</strong><br><span class="fine">מענה אמיתי — לא דמו במצגת.</span></div></div>
-        <div><b>4</b><div><strong>החלטה + עלייה לאוויר</strong><br><span class="fine">אם ממשיכים: אישור קצר, מקדמה, הקמה תוך 3–5 ימים.</span></div></div>
+      <div class="hero-actions">
+        <a class="btn btn-ink" href="#contact">פיילוט 14 יום · 990 ₪</a>
+        <a class="link-quiet" href="#pricing">לראות את המסלול</a>
       </div>
     </section>
-
-    <hr class="rule" />
-
-    <section>
-      <p class="kicker">שאלות שמגיעות מיד</p>
-      <h2>בלי סיבובים</h2>
-      <details class="faq"><summary>זה מחליף אותי לגמרי?</summary><p>לא. זה עונה על השאלות החוזרות ומעביר אליך את מה שצריך אדם.</p></details>
-      <details class="faq"><summary>צריך אתר / מערכת גדולה?</summary><p>לא בחבילה הזו. מתחילים ממענה בוואטסאפ.</p></details>
-      <details class="faq"><summary>מה אם הפיילוט לא מתאים?</summary><p>זו בדיוק המטרה של 14 יום — לבדוק על העסק האמיתי לפני מנוי.</p></details>
-      <details class="faq"><summary>למי זה לא מתאים?</summary><p>למי שמקבל כמעט אפס הודעות, או למי שרוצה רק פרסום ממומן בלי לסדר את המענה.</p></details>
-    </section>
-
-    <hr class="rule" />
-
-    <section id="go">
-      <p class="kicker">הצעד הבא</p>
-      <h2>תשאיר פרטים. נחזור לשיחה קצרה — לא ללחץ מכירה.</h2>
-      <p class="fine">הטופס פותח מייל מוכן אל ilya.lidor@gmail.com. אין כאן המלצות מזויפות ואין מספרי קסם.</p>
-      <form id="lead-form">
-        <label>שם<input id="name" required autocomplete="name" /></label>
-        <label>שם העסק<input id="business" required /></label>
-        <label>וואטסאפ / טלפון<input id="phone" required autocomplete="tel" placeholder="05X…" /></label>
-        <label>כמה הודעות ביום בערך? (רשות)<textarea id="note" rows="3" placeholder="למשל: 20–40, בעיקר אחרי 18:00"></textarea></label>
-        <button class="btn btn-main" type="submit">שליחת בקשה לפיילוט</button>
-      </form>
-    </section>
-
-    <footer>
-      © <span id="y"></span> מענה בוואטסאפ לעסקים · ilya.lidor@gmail.com
-    </footer>
   </div>
 
-  <div class="sticky-cta" class="sans">
-    <span>פיילוט 14 יום · 990 ₪</span>
-    <a href="#go">להתחיל</a>
+  <section class="wa-strip" id="demo" aria-label="דוגמה בוואטסאפ">
+    <div class="wa-strip-inner">
+      <p class="wa-kicker">ככה זה נראה אצל הלקוח</p>
+      <div class="wa-thread">
+        <div class="bubble in">היי, יש תור למחר בערב?</div>
+        <div class="bubble out">היי, כן — יש פנוי מחר ב־18:30 או ב־19:15. מה נוח לך?</div>
+        <div class="bubble in">18:30 מעולה</div>
+        <div class="bubble sys">↓ ליד חם הועבר אליך לאישור / סגירה</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>למי זה</h2>
+      <p class="proof">
+        עסקים קטנים בישראל שמקבלים הרבה הודעות וואטסאפ ומתעכבים במענה — במיוחד מחוץ לשעות העבודה:
+        מספרה וקליניקת יופי, מרפאה, חנות מקומית, נדל״ן, שירות שטח, וכל עסק עם עומס פניות.
+      </p>
+    </div>
+  </section>
+
+  <section id="included">
+    <div class="wrap">
+      <h2>מה מקבלים</h2>
+      <ol class="include-list">
+        <li>
+          <strong>מענה 24/7</strong>
+          שעות, מחיר, מיקום, זמינות ושאלות חוזרות — בעברית ובטון של העסק.
+        </li>
+        <li>
+          <strong>העברה לאדם</strong>
+          ליד חם, תלונה או נושא מורכב מגיע אליך (או למי שתגדיר). לא נשאר בבוט.
+        </li>
+        <li>
+          <strong>דוח שבועי</strong>
+          כמה שיחות, כמה הועברו לאדם, ומה השאלות שחוזרות הכי הרבה.
+        </li>
+      </ol>
+      <p class="note">לא כלול: פרסום ממומן, בניית אתר, אינטגרציות ERP כבדות.</p>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <h2>המסלול</h2>
+      <div class="price-path">
+        <article class="price-step start">
+          <div class="step-label">01 · להתחיל</div>
+          <h3>פיילוט 14 יום</h3>
+          <p class="amount">990 ₪</p>
+          <ul class="price-list">
+            <li>מענה אמיתי על המספר שלך</li>
+            <li>עץ תשובות ראשוני + טון מותאם</li>
+            <li>העברה ללידים חמים</li>
+            <li>סיכום בסוף הפיילוט</li>
+          </ul>
+          <p>אם ממשיכים — עוברים להקמה ומנוי.</p>
+        </article>
+        <div class="path-rule" aria-hidden="true"></div>
+        <article class="price-step">
+          <div class="step-label">02 · הקמה</div>
+          <h3>הקמה חד־פעמית</h3>
+          <p class="amount">2,500 ₪</p>
+          <ul class="price-list">
+            <li>אפיון מלא</li>
+            <li>עץ תשובות + חיבור</li>
+            <li>בדיקות לפני עלייה לאוויר</li>
+          </ul>
+        </article>
+        <div class="path-rule" aria-hidden="true"></div>
+        <article class="price-step">
+          <div class="step-label">03 · שוטף</div>
+          <h3>מנוי חודשי</h3>
+          <p class="amount">790 ₪</p>
+          <ul class="price-list">
+            <li>תחזוקה ותיקוני ניסוח</li>
+            <li>דוח שבועי קצר</li>
+            <li>תמיכה בעברית</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <h2>איך זה עובד</h2>
+      <ol class="how-list">
+        <li><div><strong>פרטים</strong><span>שם, עסק, וואטסאפ.</span></div></li>
+        <li><div><strong>שיחת גילוי</strong><span>כמה הודעות ביום, מי עונה, מה מציק.</span></div></li>
+        <li><div><strong>פיילוט 14 יום</strong><span>מענה אמיתי — לא דמו במצגת.</span></div></li>
+        <li><div><strong>החלטה ועלייה לאוויר</strong><span>אישור קצר + מקדמה, הקמה תוך 3–5 ימים.</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-wrap">
+      <p class="kicker">הצעד הבא</p>
+      <h2>בקשה לפיילוט</h2>
+      <p class="proof">נחזור לשיחת גילוי קצרה. בלי לחץ ובלי הבטחות שווא. אין המלצות מזויפות בדף הזה.</p>
+      <form id="lead-form" class="ui">
+        <label>שם<input id="name" required autocomplete="name" /></label>
+        <label>שם העסק<input id="business" required /></label>
+        <label>וואטסאפ / טלפון<input id="phone" required autocomplete="tel" /></label>
+        <label>כמה הודעות ביום בערך? (רשות)<textarea id="note" rows="3" placeholder="למשל: 20–40, בעיקר אחרי 18:00"></textarea></label>
+        <button class="btn btn-ink btn-block" type="submit">שליחת בקשה לפיילוט</button>
+      </form>
+      <p class="note">או ישירות: <a href="mailto:ilya.lidor@gmail.com">ilya.lidor@gmail.com</a></p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <footer>© <span id="y"></span> מענה בוואטסאפ לעסקים</footer>
+  </div>
+
+  <div class="sticky-cta" role="region" aria-label="פעולה מהירה">
+    <a href="#contact">פיילוט 14 יום · 990 ₪</a>
   </div>
 
   <script>
