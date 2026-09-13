@@ -7,27 +7,26 @@
   <meta name="description" content="מענה מיידי ללקוחות בוואטסאפ — ואתה מקבל רק את מה שצריך אדם. פיילוט 14 יום לעסקים קטנים בישראל." />
   <style>
     :root {
-      --bg: #0b1220;
-      --card: #121a2b;
-      --text: #eef3ff;
-      --muted: #a9b4cc;
-      --accent: #3ddc97;
-      --accent2: #5b8cff;
-      --line: rgba(255,255,255,.08);
-      --danger: #ffb454;
-      --radius: 18px;
-      --shadow: 0 20px 50px rgba(0,0,0,.35);
+      --bg: #f7f8fb;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #5b657a;
+      --accent: #128c7e;
+      --accent2: #0e7a6e;
+      --line: #e6eaf2;
+      --danger: #b45309;
+      --bubble-in: #eef2f7;
+      --bubble-out: #d9f5ef;
+      --radius: 16px;
+      --shadow: 0 8px 24px rgba(15,23,42,.06);
       --max: 1080px;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-      background:
-        radial-gradient(1200px 600px at 100% -10%, rgba(91,140,255,.25), transparent 55%),
-        radial-gradient(900px 500px at 0% 20%, rgba(61,220,151,.18), transparent 50%),
-        var(--bg);
+      font-family: "Segoe UI", "Heebo", "Assistant", Tahoma, Arial, sans-serif;
+      background: var(--bg);
       color: var(--text);
       line-height: 1.65;
     }
@@ -35,8 +34,8 @@
     .wrap { width: min(var(--max), calc(100% - 2rem)); margin-inline: auto; }
     header {
       position: sticky; top: 0; z-index: 20;
-      backdrop-filter: blur(14px);
-      background: rgba(11,18,32,.75);
+      backdrop-filter: blur(12px);
+      background: rgba(247,248,251,.9);
       border-bottom: 1px solid var(--line);
     }
     .nav {
@@ -46,82 +45,177 @@
     .brand { display: flex; align-items: center; gap: .7rem; font-weight: 700; }
     .logo {
       width: 36px; height: 36px; border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      display: grid; place-items: center; color: #062016; font-weight: 800;
+      background: var(--accent);
+      display: grid; place-items: center; color: #fff; font-weight: 800;
     }
     .nav-cta {
-      text-decoration: none; background: var(--accent); color: #062016;
-      padding: .65rem 1rem; border-radius: 999px; font-weight: 700;
+      text-decoration: none; background: var(--accent); color: #fff;
+      padding: .7rem 1.1rem; min-height: 44px;
+      border-radius: 999px; font-weight: 700;
+      display: inline-flex; align-items: center;
     }
-    .hero { padding: 4.5rem 0 3rem; }
+    .hero { padding: 3.5rem 0 2.5rem; }
     .hero-grid {
       display: grid; gap: 2rem;
-      grid-template-columns: 1.2fr .8fr;
+      grid-template-columns: 1.15fr .85fr;
       align-items: center;
     }
-    @media (max-width: 860px) {
-      .hero-grid, .pricing, .features, .steps { grid-template-columns: 1fr !important; }
+    h1 { font-size: clamp(1.85rem, 4vw, 2.85rem); line-height: 1.2; margin: 0 0 1rem; }
+    .lead, .section-sub {
+      color: var(--muted); font-size: 1.125rem; line-height: 1.7;
+      margin: 0 0 1.5rem; max-width: 38rem;
     }
-    h1 { font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.15; margin: 0 0 1rem; }
-    .lead { color: var(--muted); font-size: 1.1rem; margin: 0 0 1.5rem; max-width: 38rem; }
-    .pills { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
+    .pills { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.35rem; }
     .pill {
-      border: 1px solid var(--line); background: rgba(255,255,255,.03);
-      padding: .35rem .7rem; border-radius: 999px; color: var(--muted); font-size: .9rem;
+      border: 1px solid var(--line); background: #eef2f7;
+      padding: .35rem .75rem; border-radius: 999px; color: var(--muted); font-size: .9rem;
     }
     .btn-row { display: flex; flex-wrap: wrap; gap: .75rem; }
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
       text-decoration: none; border: 0; cursor: pointer;
-      padding: .85rem 1.2rem; border-radius: 999px; font-weight: 700; font-size: 1rem;
+      padding: .9rem 1.25rem; min-height: 44px;
+      border-radius: 999px; font-weight: 700; font-size: 1rem;
     }
-    .btn-primary { background: var(--accent); color: #062016; }
-    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--line); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-ghost {
+      background: #fff; color: var(--text);
+      border: 1px solid var(--line);
+    }
     .card {
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       padding: 1.25rem;
     }
-    .stat { display: grid; gap: .35rem; padding: .85rem 0; border-bottom: 1px solid var(--line); }
-    .stat:last-child { border-bottom: 0; }
-    .stat strong { font-size: 1.35rem; }
-    .stat span { color: var(--muted); font-size: .92rem; }
-    section { padding: 3.2rem 0; }
-    .section-title { margin: 0 0 .5rem; font-size: clamp(1.6rem, 3vw, 2.2rem); }
-    .section-sub { margin: 0 0 1.75rem; color: var(--muted); max-width: 40rem; }
-    .features, .pricing, .steps {
+    .wa-mock { padding: 1rem; }
+    .wa-mock-head {
+      display: flex; align-items: center; gap: .6rem;
+      padding-bottom: .85rem; margin-bottom: .85rem;
+      border-bottom: 1px solid var(--line);
+      font-weight: 700; font-size: .95rem;
+    }
+    .wa-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #25d366;
+    }
+    .bubbles { display: grid; gap: .65rem; }
+    .bubble {
+      max-width: 88%;
+      padding: .7rem .85rem;
+      border-radius: 14px;
+      font-size: .95rem;
+      line-height: 1.45;
+    }
+    .bubble.in {
+      justify-self: start;
+      background: var(--bubble-in);
+      color: var(--text);
+      border-bottom-right-radius: 4px;
+    }
+    .bubble.out {
+      justify-self: end;
+      background: var(--bubble-out);
+      color: var(--text);
+      border-bottom-left-radius: 4px;
+    }
+    .bubble.note {
+      justify-self: center;
+      max-width: 100%;
+      background: transparent;
+      color: var(--muted);
+      font-size: .82rem;
+      text-align: center;
+      padding: .2rem 0 0;
+    }
+    section { padding: 3rem 0; }
+    .section-title { margin: 0 0 .5rem; font-size: clamp(1.5rem, 3vw, 2rem); }
+    .features {
       display: grid; gap: 1rem;
       grid-template-columns: repeat(3, 1fr);
     }
-    .steps { grid-template-columns: repeat(5, 1fr); }
-    @media (max-width: 1100px) {
-      .steps { grid-template-columns: repeat(2, 1fr); }
-    }
-    .feature h3, .price h3, .step h3 { margin: 0 0 .5rem; font-size: 1.15rem; }
+    .feature h3, .price h3, .step h3 { margin: 0 0 .5rem; font-size: 1.1rem; }
     .feature p, .price p, .step p { margin: 0; color: var(--muted); }
-    .price.featured {
-      border-color: rgba(61,220,151,.45);
-      background: linear-gradient(180deg, rgba(61,220,151,.12), rgba(255,255,255,.02));
+    .who { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .who span {
+      background: #eef2f7; border: 1px solid var(--line);
+      padding: .55rem .9rem; border-radius: 999px;
     }
-    .price .amount { font-size: 2rem; font-weight: 800; margin: .6rem 0; }
+    .pricing {
+      display: grid; gap: 1rem;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .price { position: relative; }
+    .price.featured {
+      border-color: rgba(18,140,126,.45);
+      background: rgba(18,140,126,.08);
+    }
+    .badge {
+      display: inline-block;
+      background: var(--accent); color: #fff;
+      font-size: .78rem; font-weight: 700;
+      padding: .25rem .55rem; border-radius: 999px;
+      margin-bottom: .55rem;
+    }
+    .stage {
+      display: inline-block; color: var(--muted);
+      font-size: .8rem; font-weight: 700; margin-bottom: .35rem;
+    }
+    .amount { font-size: 2rem; font-weight: 800; margin: .35rem 0 .7rem; }
+    .price-list {
+      margin: 0 0 .85rem; padding-inline-start: 1.1rem;
+      color: var(--muted); font-size: .95rem;
+    }
+    .price-list li { margin: .25rem 0; }
     .note {
       margin-top: 1rem; color: var(--danger); font-size: .95rem;
-      border: 1px dashed rgba(255,180,84,.35); padding: .8rem 1rem; border-radius: 12px;
+      border: 1px dashed rgba(180,83,9,.35);
+      background: #fff7ed;
+      padding: .8rem 1rem; border-radius: 12px;
+    }
+    .steps {
+      display: grid; gap: 1rem;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--accent); color: #fff;
+      display: grid; place-items: center;
+      font-weight: 800; font-size: .9rem;
+      margin-bottom: .7rem;
+    }
+    .contact-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: start;
     }
     form { display: grid; gap: .8rem; }
     label { display: grid; gap: .35rem; font-size: .92rem; color: var(--muted); }
     input, textarea {
-      width: 100%; border-radius: 12px; border: 1px solid var(--line);
-      background: #0a101c; color: var(--text); padding: .85rem .9rem; font: inherit;
+      width: 100%; border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff; color: var(--text);
+      padding: .85rem .9rem; font: inherit; font-size: 16px;
     }
-    input:focus, textarea:focus { outline: 2px solid rgba(91,140,255,.45); border-color: transparent; }
+    input:focus, textarea:focus {
+      outline: 2px solid rgba(18,140,126,.45);
+      border-color: transparent;
+    }
     footer {
-      border-top: 1px solid var(--line); padding: 2rem 0 3rem; color: var(--muted); font-size: .92rem;
+      border-top: 1px solid var(--line);
+      padding: 2rem 0 3rem;
+      color: var(--muted);
+      font-size: .92rem;
     }
-    .who { display: flex; flex-wrap: wrap; gap: .6rem; }
-    .who span {
-      background: rgba(255,255,255,.04); border: 1px solid var(--line);
-      padding: .55rem .9rem; border-radius: 999px;
+    @media (max-width: 860px) {
+      .hero-grid,
+      .features,
+      .pricing,
+      .steps,
+      .contact-grid { grid-template-columns: 1fr !important; }
     }
   </style>
 </head>
@@ -132,7 +226,7 @@
         <div class="logo">ו</div>
         <span>מענה חכם בוואטסאפ</span>
       </div>
-      <a class="nav-cta" href="#contact">לפיילוט 14 יום</a>
+      <a class="nav-cta" href="#contact">התחלת פיילוט 14 יום</a>
     </div>
   </header>
 
@@ -145,20 +239,23 @@
             <span class="pill">עברית · קצר · ברור</span>
             <span class="pill">הקמה תוך 3–5 ימים</span>
           </div>
-          <h1>הלקוחות מקבלים מענה מיידי בוואטסאפ — ואתה מקבל רק את מה שצריך אדם.</h1>
+          <h1>הלקוח כותב עכשיו. מי עונה לו?</h1>
           <p class="lead">
-            בוט מענה חכם לשאלות נפוצות 24/7, עם העברה חכמה אליך כשיש ליד חם, תלונה או נושא מורכב.
+            בוט בעברית ובטון של העסק עונה לשאלות נפוצות 24/7 — שעות, מחיר, מיקום, זמינות. לידים חמים, תלונות ומקרים מורכבים מגיעים אליך. לא נשארים בבוט.
           </p>
           <div class="btn-row">
-            <a class="btn btn-primary" href="#contact">התחלת פיילוט ב־990 ₪</a>
-            <a class="btn btn-ghost" href="#pricing">לראות מחירים</a>
+            <a class="btn btn-primary" href="#contact">התחלת פיילוט 14 יום</a>
+            <a class="btn btn-ghost" href="#features">מה כלול בחבילה</a>
           </div>
         </div>
-        <aside class="card" aria-label="סיכום הצעה">
-          <div class="stat"><strong>24/7</strong><span>מענה לשאלות נפוצות</span></div>
-          <div class="stat"><strong>העברה לאדם</strong><span>רק לידים חמים / מקרים מורכבים</span></div>
-          <div class="stat"><strong>דוח שבועי</strong><span>כמות שיחות, העברות, שאלות חוזרות</span></div>
-          <div class="stat"><strong>3–5 ימים</strong><span>להקמה אחרי אישור</span></div>
+        <aside class="card wa-mock" aria-label="דוגמה למענה בוואטסאפ">
+          <div class="wa-mock-head"><span class="wa-dot"></span> WhatsApp Business · דוגמה</div>
+          <div class="bubbles">
+            <div class="bubble in">היי, עד איזה שעה אתם פתוחים היום?</div>
+            <div class="bubble out">היי! אנחנו פתוחים היום עד 19:00. רוצים לשריין תור?</div>
+            <div class="bubble in">כן, ליום חמישי בערב</div>
+            <div class="bubble note">↓ ליד חם — מועבר לבעל העסק</div>
+          </div>
         </aside>
       </div>
     </section>
@@ -166,7 +263,7 @@
     <section id="who">
       <div class="wrap">
         <h2 class="section-title">למי זה מתאים</h2>
-        <p class="section-sub">עסקים שמקבלים הרבה הודעות וואטסאפ ומתעכבים במענה — במיוחד מחוץ לשעות העבודה.</p>
+        <p class="section-sub">עסקים קטנים בישראל שמקבלים הרבה הודעות וואטסאפ ומתעכבים במענה — במיוחד מחוץ לשעות העבודה.</p>
         <div class="who">
           <span>מספרה / קליניקת יופי</span>
           <span>מרפאה / קליניקה</span>
@@ -181,7 +278,7 @@
     <section id="features">
       <div class="wrap">
         <h2 class="section-title">מה מקבלים</h2>
-        <p class="section-sub">חבילה ממוקדת — בלי הבטחות מנופחות ובלי תוספות שלא ביקשתם.</p>
+        <p class="section-sub">חבילה ממוקדת. בלי תוספות שלא ביקשתם.</p>
         <div class="features">
           <article class="card feature">
             <h3>בוט מענה 24/7</h3>
@@ -189,7 +286,7 @@
           </article>
           <article class="card feature">
             <h3>העברה לאדם</h3>
-            <p>כשיש ליד חם, תלונה או משהו מורכב — זה מגיע אליך (או למי שתגדיר) במקום להיתקע בבוט.</p>
+            <p>ליד חם, תלונה או משהו מורכב מגיע אליך (או למי שתגדיר) במקום להיתקע בבוט.</p>
           </article>
           <article class="card feature">
             <h3>דוח שבועי קצר</h3>
@@ -202,22 +299,44 @@
 
     <section id="pricing">
       <div class="wrap">
-        <h2 class="section-title">מחירים</h2>
-        <p class="section-sub">שקיפות מלאה. אפשר להתחיל בפיילוט קצר לפני מנוי מלא.</p>
+        <h2 class="section-title">מחירים ברורים</h2>
+        <p class="section-sub">אפשר להתחיל בפיילוט קצר לפני מנוי מלא.</p>
         <div class="pricing">
           <article class="card price featured">
+            <span class="badge">מומלץ להתחיל</span>
+            <div class="stage">שלב 1</div>
             <h3>פיילוט 14 יום</h3>
             <div class="amount">990 ₪</div>
-            <p>התנסות מלאה. אם ממשיכים — נכנס למסלול הרגיל.</p>
+            <ul class="price-list">
+              <li>מענה אמיתי על המספר של העסק</li>
+              <li>עץ תשובות ראשוני + טון מותאם</li>
+              <li>העברה לאדם ללידים חמים</li>
+              <li>סיכום בסוף הפיילוט</li>
+            </ul>
+            <p>התנסות מלאה על העסק שלך. אם ממשיכים — נכנס למסלול הרגיל.</p>
           </article>
           <article class="card price">
+            <div class="stage">שלב 2</div>
             <h3>הקמה חד־פעמית</h3>
             <div class="amount">2,500 ₪</div>
+            <ul class="price-list">
+              <li>אפיון מלא לשאלות נפוצות</li>
+              <li>חיבור תהליך המענה</li>
+              <li>בדיקות לפני עלייה לאוויר</li>
+              <li>התאמות אחרי הפיילוט</li>
+            </ul>
             <p>אפיון, עץ תשובות, חיבור וטון מותאם לעסק.</p>
           </article>
           <article class="card price">
+            <div class="stage">שלב 3</div>
             <h3>מנוי חודשי</h3>
             <div class="amount">790 ₪</div>
+            <ul class="price-list">
+              <li>תחזוקת מענה שוטפת</li>
+              <li>דוח שבועי קצר</li>
+              <li>תיקוני ניסוח לפי שאלות חוזרות</li>
+              <li>תמיכה בעברית</li>
+            </ul>
             <p>תחזוקה, מענה שוטף ודוח שבועי.</p>
           </article>
         </div>
@@ -227,29 +346,44 @@
     <section id="how">
       <div class="wrap">
         <h2 class="section-title">איך זה עובד</h2>
-        <p class="section-sub">תהליך קצר וברור — בלי לסבך את העסק.</p>
+        <p class="section-sub">תהליך קצר וברור.</p>
         <div class="steps">
-          <article class="card step"><h3>1. פנייה</h3><p>הודעה קצרה / שיחה ראשונה.</p></article>
-          <article class="card step"><h3>2. גילוי</h3><p>כמה הודעות ביום, מי עונה, מה מציק.</p></article>
-          <article class="card step"><h3>3. פיילוט</h3><p>14 יום עם מענה אמיתי.</p></article>
-          <article class="card step"><h3>4. אישור</h3><p>הסכמה קצרה + מקדמה.</p></article>
-          <article class="card step"><h3>5. עלייה לאוויר</h3><p>הקמה תוך 3–5 ימים.</p></article>
+          <article class="card step">
+            <div class="step-num">1</div>
+            <h3>פנייה</h3>
+            <p>הודעה קצרה או שיחה ראשונה</p>
+          </article>
+          <article class="card step">
+            <div class="step-num">2</div>
+            <h3>גילוי</h3>
+            <p>כמה הודעות ביום, מי עונה, מה מציק</p>
+          </article>
+          <article class="card step">
+            <div class="step-num">3</div>
+            <h3>פיילוט</h3>
+            <p>14 יום עם מענה אמיתי</p>
+          </article>
+          <article class="card step">
+            <div class="step-num">4</div>
+            <h3>עלייה לאוויר</h3>
+            <p>אישור קצר + מקדמה, הקמה תוך 3–5 ימים</p>
+          </article>
         </div>
       </div>
     </section>
 
     <section id="contact">
-      <div class="wrap" style="display:grid;gap:1rem;grid-template-columns:1.1fr .9fr;align-items:start">
+      <div class="wrap contact-grid">
         <div>
           <h2 class="section-title">בואו נתחיל בפיילוט</h2>
-          <p class="section-sub">מלאו פרטים קצרים. השליחה נפתחת במייל מוכן ל־ilya.lidor@gmail.com — בלי מספרי וואטסאפ מזויפים ובלי הבטחות שווא.</p>
+          <p class="section-sub">מלאו פרטים קצרים. נחזור לשיחת גילוי — ורק אז מתחילים אם זה מתאים לשני הצדדים.</p>
           <div class="card">
             <form id="lead-form">
-              <label>שם<input id="name" name="name" required placeholder="ישראל ישראלי" /></label>
+              <label>שם<input id="name" name="name" required placeholder="ישראל ישראלי" autocomplete="name" /></label>
               <label>שם העסק<input id="business" name="business" required placeholder="קפה / מספרה / קליניקה" /></label>
-              <label>וואטסאפ / טלפון<input id="phone" name="phone" required placeholder="05X-XXXXXXX" /></label>
+              <label>וואטסאפ / טלפון<input id="phone" name="phone" required placeholder="05X-XXXXXXX" autocomplete="tel" /></label>
               <label>הערה (רשות)<textarea id="note" name="note" rows="3" placeholder="כמה הודעות ביום בערך? מי עונה היום?"></textarea></label>
-              <button class="btn btn-primary" type="submit">שליחה למייל</button>
+              <button class="btn btn-primary" type="submit">שליחת בקשה לפיילוט</button>
             </form>
             <p style="color:var(--muted);font-size:.9rem;margin:.9rem 0 0">
               אפשר גם ישירות:
@@ -259,8 +393,8 @@
         </div>
         <aside class="card">
           <h3 style="margin-top:0">מה קורה אחרי השליחה</h3>
-          <p style="color:var(--muted)">חוזרים אליך לשיחת גילוי קצרה, ורק אז מתחילים פיילוט אם זה מתאים לשני הצדדים.</p>
-          <p style="color:var(--muted)">אין כאן המלצות לקוחות מזויפות ואין מספרי מכירות מומצאים — רק ההצעה עצמה.</p>
+          <p style="color:var(--muted)">חוזרים לשיחת גילוי קצרה. בלי לחץ ובלי הבטחות שווא.</p>
+          <p style="color:var(--muted)">אין המלצות מזויפות ואין מספרי מכירות מומצאים — רק ההצעה עצמה.</p>
         </aside>
       </div>
     </section>
@@ -281,12 +415,7 @@
       var phone = document.getElementById('phone').value.trim();
       var note = document.getElementById('note').value.trim();
       var subject = 'פיילוט מענה חכם בוואטסאפ — ' + business;
-      var body = [
-        'שם: ' + name,
-        'עסק: ' + business,
-        'וואטסאפ/טלפון: ' + phone,
-        'הערה: ' + (note || '—')
-      ].join('\n');
+      var body = ['שם: ' + name, 'עסק: ' + business, 'וואטסאפ/טלפון: ' + phone, 'הערה: ' + (note || '—')].join('\n');
       window.location.href = 'mailto:ilya.lidor@gmail.com'
         + '?subject=' + encodeURIComponent(subject)
         + '&body=' + encodeURIComponent(body);
