@@ -3,385 +3,303 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>מענה חכם בוואטסאפ</title>
-  <meta name="description" content="פיילוט 14 יום — מענה מיידי בוואטסאפ. 990 ₪." />
+  <title>מענה חכם בוואטסאפ | פיילוט 14 יום</title>
+  <meta name="description" content="מענה אוטומטי בוואטסאפ לעסקים קטנים. פיילוט 14 יום ב־990 ₪." />
   <style>
     :root {
-      --bg: #070b1a;
-      --bg-2: #0e1530;
-      --ink: #f7f4ff;
-      --muted: #b7b3d9;
-      --line: rgba(255,255,255,.12);
-      --coral: #ff5a7a;
-      --pink: #ff3db5;
-      --yellow: #ffe566;
-      --violet: #7a5cff;
-      --cyan: #4de1ff;
-      --accent: var(--coral);
-      --accent-ink: #1a0510;
-      --max: 760px;
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --ink: #111111;
+      --muted: #5a5a5a;
+      --line: #eaeaea;
+      --wa: #128c7e;
+      --wa-deep: #075e54;
+      --soft: #f0f2f1;
+      --max: 680px;
+      --wide: 920px;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
+      background: var(--bg);
       color: var(--ink);
       font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
-      background:
-        radial-gradient(900px 500px at 10% -10%, rgba(255,61,181,.35), transparent 55%),
-        radial-gradient(800px 480px at 95% 15%, rgba(122,92,255,.4), transparent 50%),
-        radial-gradient(700px 420px at 40% 110%, rgba(77,225,255,.2), transparent 45%),
-        var(--bg);
-      line-height: 1.5;
+      line-height: 1.55;
     }
     a { color: inherit; text-decoration: none; }
-
-    .price-step.is-active {
-      border-color: var(--coral);
-      box-shadow: 0 0 0 2px rgba(255,90,122,.35), 0 12px 40px rgba(255,90,122,.2);
-      transform: scale(1.02);
-      transition: transform .35s ease, box-shadow .35s ease;
-    }
-    .price-step.start.is-active { transform: rotate(-0.5deg) scale(1.02); }
-    .thread .b {
-      opacity: 0; transform: translateY(16px);
-      transition: opacity .45s ease, transform .45s cubic-bezier(.2,.8,.2,1);
-    }
-    .thread.is-in .b { opacity: 1; transform: none; }
-    .thread.is-in .b:nth-child(1) { transition-delay: 0ms; }
-    .thread.is-in .b:nth-child(2) { transition-delay: 120ms; }
-    .thread.is-in .b:nth-child(3) { transition-delay: 240ms; }
-    .thread.is-in .sys { transition-delay: 360ms; opacity: 1; }
-    .thread .sys { opacity: 0; transition: opacity .45s ease .1s; }
-    @media (prefers-reduced-motion: no-preference) {
-      .btn { animation: ctaPulse 2.4s ease-in-out infinite; }
-      .sticker, .stick { animation: stickerWiggle 3s ease-in-out infinite; }
-    }
-    @keyframes ctaPulse {
-      0%,100% { box-shadow: 0 10px 40px rgba(255,90,122,.45); }
-      50% { box-shadow: 0 12px 50px rgba(255,61,181,.65); }
-    }
-    @keyframes stickerWiggle {
-      0%,100% { transform: rotate(-3deg); }
-      50% { transform: rotate(-5deg); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; transition: none !important; }
-      .reveal, .thread .b, .thread .sys { opacity: 1 !important; transform: none !important; }
-    }
-
-    /* scroll motion */
-    .reveal {
-      opacity: 0;
-      transform: translateY(48px) scale(.96);
-      transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
-      will-change: transform, opacity;
-    }
-    .reveal.is-in {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    .reveal.from-left { transform: translateX(40px) rotate(2deg); }
-    .reveal.from-left.is-in { transform: none; }
-    .reveal.from-right { transform: translateX(-40px) rotate(-2deg); }
-    .reveal.from-right.is-in { transform: none; }
-    .pin-stage {
-      position: sticky; top: 12vh; z-index: 2;
-    }
-    .wa-strip {
-      transition: transform .15s linear, filter .15s linear;
-    }
-
-    .scroll-fx-layer {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
-    }
-    .blob {
-      position: absolute; border-radius: 50%; filter: blur(40px); opacity: .45;
-      mix-blend-mode: screen;
-    }
-    .blob.b1 { width: 280px; height: 280px; background: rgba(255,61,181,.5); top: 10%; inset-inline-start: -60px; }
-    .blob.b2 { width: 220px; height: 220px; background: rgba(122,92,255,.45); top: 40%; inset-inline-end: -40px; }
-    .blob.b3 { width: 260px; height: 260px; background: rgba(77,225,255,.35); top: 70%; inset-inline-start: 20%; }
-
-    .wrap { width: min(var(--max), calc(100% - 2rem)); margin-inline: auto; position: relative; }
+    .wrap { width: min(var(--max), calc(100% - 2rem)); margin-inline: auto; }
+    .wrap-wide { width: min(var(--wide), calc(100% - 2rem)); margin-inline: auto; }
     header {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(250,250,250,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 1.1rem 0; position: relative; z-index: 5;
+      min-height: 58px;
+      width: min(var(--wide), calc(100% - 2rem));
+      margin-inline: auto;
     }
-    .mark { font-weight: 900; letter-spacing: -.03em; }
-    .nav-cta {
-      background: linear-gradient(90deg, var(--coral), var(--pink));
-      color: #fff; font-weight: 900; border-radius: 999px;
-      padding: .75rem 1.1rem; min-height: 44px;
-      box-shadow: 0 10px 40px rgba(255,90,122,.35);
-      display: inline-flex; align-items: center;
-    }
-    .hero { padding: clamp(2.5rem, 8vw, 5rem) 0 3rem; position: relative; overflow: visible; }
-    .orb {
-      position: absolute; width: 220px; height: 220px; border-radius: 50%;
-      background: rgba(255,90,122,.35); filter: blur(50px);
-      inset-inline-end: -40px; top: 20%; pointer-events: none; z-index: 0;
-    }
-    .chip {
-      position: absolute; z-index: 1; pointer-events: none;
-      font-weight: 900; font-size: .8rem; padding: .45rem .75rem;
-      border-radius: 999px; white-space: nowrap;
-    }
-    .chip.a { background: var(--yellow); color: #1a1400; top: 12%; inset-inline-start: 2%; transform: rotate(-3deg); }
-    .chip.b { background: var(--coral); color: #fff; top: 38%; inset-inline-end: 0; transform: rotate(4deg); }
-    .chip.c { border: 2px solid var(--pink); color: var(--pink); background: rgba(7,11,26,.6); bottom: 18%; inset-inline-start: 8%; transform: rotate(-2deg); }
-    .kicker {
-      display: inline-block; background: var(--yellow); color: #1a1400;
-      font-weight: 900; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
-      padding: .35rem .65rem; border-radius: 999px; transform: rotate(-2deg); margin-bottom: 1rem;
-      position: relative; z-index: 2;
-    }
-    h1 {
-      position: relative; z-index: 2;
-      font-size: clamp(3rem, 11vw, 5.5rem); line-height: .95; font-weight: 900;
-      letter-spacing: -.045em; max-width: 11ch; margin: 0 0 1.1rem;
-    }
-    h1 .hl { color: var(--yellow); }
-    .lead { position: relative; z-index: 2; color: var(--muted); font-size: 1.12rem; max-width: 34rem; margin: 0 0 1rem; font-weight: 600; }
-    .icp { position: relative; z-index: 2; color: var(--cyan); font-weight: 800; margin: 0 0 1.4rem; }
-    .actions { position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: .85rem; align-items: center; }
+    .mark { font-weight: 800; letter-spacing: -.02em; }
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
-      background: linear-gradient(90deg, var(--coral), var(--pink));
-      color: #fff; font-weight: 900; border: 0; border-radius: 999px;
-      padding: 1rem 1.5rem; min-height: 52px;
-      box-shadow: 0 10px 40px rgba(255,90,122,.45); cursor: pointer; font-size: 1rem;
+      background: var(--wa); color: #fff; font-weight: 800;
+      border: 0; border-radius: 12px; min-height: 48px;
+      padding: .85rem 1.15rem; cursor: pointer; font-size: 1rem;
     }
-    .link-quiet { color: var(--yellow); border-bottom: 2px solid var(--yellow); font-weight: 800; }
-    .wa-strip {
-      background: #050814; border-block: 1px solid var(--line);
-      padding: clamp(2.2rem, 5vw, 3.5rem) 0; margin-top: 1rem;
+    .btn:hover { background: var(--wa-deep); }
+    .btn-soft {
+      background: var(--surface); color: var(--ink);
+      border: 1px solid var(--line);
     }
-    .wa-inner { width: min(880px, calc(100% - 2rem)); margin-inline: auto; position: relative; }
-    .sticker {
-      display: inline-block; background: var(--yellow); color: #1a1400;
-      font-weight: 900; font-size: .7rem; letter-spacing: .1em;
-      padding: .3rem .55rem; border-radius: 8px; transform: rotate(-3deg); margin-bottom: 1rem;
+    .hero { padding: clamp(3rem, 9vw, 5.5rem) 0 2.5rem; }
+    .eyebrow {
+      color: var(--wa); font-weight: 800; font-size: .82rem;
+      margin-bottom: .85rem;
     }
-    .thread { max-width: 420px; margin-inline: auto; display: grid; gap: .55rem; }
-    .b { max-width: 86%; padding: .75rem .9rem; border-radius: 16px; font-size: .95rem; font-weight: 600; }
-    .in { justify-self: start; background: #1c2140; color: var(--ink); border-start-start-radius: 16px; border-start-end-radius: 16px; border-end-end-radius: 16px; border-end-start-radius: 4px; }
-    .out { justify-self: end; background: linear-gradient(135deg, rgba(255,90,122,.35), rgba(255,61,181,.25)); border: 1px solid rgba(255,90,122,.45); border-start-start-radius: 16px; border-start-end-radius: 16px; border-end-start-radius: 16px; border-end-end-radius: 4px; }
-    .sys { justify-self: center; color: var(--muted); font-size: .8rem; }
-    section { padding: clamp(3rem, 7vw, 5rem) 0; }
-    h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 900; letter-spacing: -.03em; margin: 0 0 1.2rem; }
-    .for-not { display: grid; gap: 1rem; }
-    @media (min-width: 700px) { .for-not { grid-template-columns: 1fr 1fr; gap: 1.25rem; } }
-    .panel { border-radius: 18px; padding: 1.25rem; background: rgba(14,21,48,.7); }
-    .panel.yes { border: 3px solid var(--cyan); }
-    .panel.no { border: 3px solid var(--pink); }
-    .panel h3 { margin: 0 0 .5rem; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
-    .panel p { margin: 0; color: var(--muted); font-weight: 600; }
-    .include-list { list-style: none; padding: 0; margin: 0; }
-    .include-list li {
-      padding: 1.15rem 0; border-bottom: 1px dashed var(--line);
-      color: var(--muted); font-weight: 600;
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 7vw, 3.6rem);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.1;
+      max-width: 16ch;
     }
-    .include-list strong { display: block; color: var(--ink); font-size: 1.2rem; margin-bottom: .3rem; }
-    .note { color: var(--muted); margin-top: 1rem; font-weight: 600; }
-    .price-path { margin-top: 1rem; }
-    .price-step { padding: 1.5rem 0; border-bottom: 1px dashed var(--line); }
-    .price-step.start {
-      background: linear-gradient(135deg, rgba(255,90,122,.2), rgba(122,92,255,.2));
-      border: 2px solid var(--coral); border-radius: 20px;
-      padding: 1.5rem; transform: rotate(-0.5deg); margin-bottom: 1rem;
-      border-bottom: 2px solid var(--coral);
+    .lead {
+      margin: 1rem 0 0;
+      color: var(--muted);
+      font-size: 1.12rem;
+      max-width: 38rem;
     }
-    .step-label { color: var(--cyan); font-weight: 900; letter-spacing: .12em; font-size: .75rem; text-transform: uppercase; }
-    .amount { font-size: clamp(3rem, 9vw, 4.5rem); font-weight: 900; color: var(--yellow); margin: .35rem 0; letter-spacing: -.04em; }
-    .price-step h3 { margin: 0; font-size: 1.35rem; }
-    .price-list { margin: .5rem 0 0; padding-inline-start: 1.1rem; color: var(--muted); font-weight: 600; }
-    .how-list { list-style: none; padding: 0; margin: 0; counter-reset: how; }
-    .how-list li {
-      display: grid; grid-template-columns: 3.2rem 1fr; gap: .8rem;
-      padding: 1.1rem 0; border-bottom: 1px dashed var(--line);
+    .actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.4rem; }
+    .demo {
+      background: var(--soft);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: clamp(2.5rem, 6vw, 4rem) 0;
     }
-    .how-list li::before {
-      counter-increment: how; content: counter(how, decimal-leading-zero);
-      font-size: 1.6rem; font-weight: 900; color: var(--yellow); letter-spacing: -.04em;
+    .demo h2 {
+      margin: 0 0 1.2rem;
+      font-size: 1.15rem;
+      letter-spacing: -.01em;
     }
-    .how-list strong { display: block; margin-bottom: .2rem; }
-    .how-list span { color: var(--muted); font-weight: 600; }
-    .contact { max-width: 520px; margin-inline: auto; }
-    form { display: grid; gap: .7rem; margin-top: 1rem; }
-    label { display: grid; gap: .3rem; font-size: .85rem; color: var(--muted); font-weight: 800; }
+    .thread {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.1rem;
+      display: grid; gap: .55rem;
+      max-width: 420px;
+    }
+    .b {
+      max-width: 88%; padding: .7rem .85rem; border-radius: 14px;
+      font-size: .95rem; line-height: 1.35;
+      opacity: 0; transform: translateY(14px);
+      transition: opacity .45s ease, transform .45s ease;
+    }
+    .b.show { opacity: 1; transform: none; }
+    .b.them { justify-self: start; background: #ececec; color: var(--ink); }
+    .b.us { justify-self: end; background: var(--wa); color: #fff; }
+    .b.sys {
+      justify-self: center; max-width: 100%; text-align: center;
+      background: transparent; color: var(--muted); font-size: .78rem; padding: .15rem 0;
+    }
+    section.block { padding: clamp(2.8rem, 7vw, 4.2rem) 0; border-bottom: 1px solid var(--line); }
+    section.block h2 {
+      margin: 0 0 1rem;
+      font-size: clamp(1.55rem, 4vw, 2.1rem);
+      letter-spacing: -.02em; line-height: 1.2;
+    }
+    .muted { color: var(--muted); }
+    .two {
+      display: grid; gap: 1.25rem;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 700px) {
+      .two { grid-template-columns: 1fr; }
+      header .nav .btn { display: none; }
+      body { padding-bottom: 4.8rem; }
+      .sticky-cta { display: block !important; }
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.1rem 1.15rem;
+    }
+    .card h3 { margin: 0 0 .4rem; font-size: 1rem; }
+    .card p { margin: 0; color: var(--muted); font-size: .98rem; }
+    ol.clean, ul.clean {
+      margin: 0; padding: 0; list-style: none; display: grid; gap: .85rem;
+    }
+    ol.clean li, ul.clean li {
+      display: grid; grid-template-columns: 2rem 1fr; gap: .7rem;
+      align-items: start;
+    }
+    .n {
+      width: 2rem; height: 2rem; border-radius: 8px;
+      background: var(--soft); color: var(--ink);
+      display: grid; place-items: center; font-weight: 800; font-size: .9rem;
+    }
+    .price-path { display: grid; gap: .8rem; }
+    .price-main {
+      background: var(--surface);
+      border: 1px solid var(--ink);
+      border-radius: 12px;
+      padding: 1.2rem 1.25rem;
+    }
+    .price-main strong {
+      display: block;
+      font-size: clamp(1.6rem, 4vw, 2rem);
+      letter-spacing: -.02em;
+      margin-bottom: .35rem;
+    }
+    .price-sub {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1rem 1.15rem;
+      background: var(--surface);
+    }
+    .reveal {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .reveal.is-in { opacity: 1; transform: none; }
+    .close { padding: clamp(3rem, 8vw, 4.5rem) 0; }
+    form { display: grid; gap: .7rem; margin-top: 1.3rem; }
+    label { display: grid; gap: .3rem; font-size: .85rem; color: var(--muted); }
     input, textarea {
-      width: 100%; border-radius: 14px; border: 1px solid var(--line);
-      background: #0a1024; color: var(--ink); padding: .9rem 1rem; font: inherit; font-size: 16px;
+      width: 100%; border-radius: 12px; border: 1px solid var(--line);
+      background: var(--surface); color: var(--ink);
+      padding: .85rem .95rem; font: inherit; font-size: 16px;
     }
-    .btn-outline {
-      width: 100%; min-height: 48px; border-radius: 999px; border: 2px solid var(--ink);
-      background: transparent; color: var(--ink); font-weight: 900; cursor: pointer;
+    footer {
+      padding: 1.5rem 0 2rem; color: var(--muted); font-size: .88rem;
+      border-top: 1px solid var(--line);
     }
-    footer { padding: 2rem 0 3rem; color: var(--muted); font-weight: 700; border-top: 1px solid var(--line); margin-top: 1rem; }
-    .chip-row { display: none; flex-wrap: wrap; gap: .35rem; margin: 0 0 .9rem; position: relative; z-index: 2; }
-    .sticky-cta { display: none; }
-    h2 .stick {
-      display: inline-block; background: var(--yellow); color: #1a1400;
-      font-weight: 900; font-size: .65rem; letter-spacing: .1em;
-      padding: .25rem .5rem; border-radius: 8px; transform: rotate(-2deg);
-      margin-inline-end: .5rem; vertical-align: middle;
+    .sticky-cta {
+      display: none; position: fixed; inset-inline: 0; bottom: 0; z-index: 40;
+      padding: .7rem 1rem calc(.7rem + env(safe-area-inset-bottom));
+      background: rgba(250,250,250,.96); border-top: 1px solid var(--line);
     }
-    .how-list span { display: block; margin-top: .2rem; }
-    @media (max-width: 1000px) {
-      .chip { display: none; }
-      .chip-row { display: flex; }
-      .chip-row .chip {
-        display: inline-block; position: relative; inset: auto; top: auto; bottom: auto;
-        inset-inline: auto; font-size: .68rem; padding: .3rem .55rem; margin: 0;
-      }
-      .chip-row .chip.a { transform: rotate(-2deg); }
-      .chip-row .chip.b { transform: rotate(2deg); }
-      .chip-row .chip.c { transform: rotate(-1deg); }
-    }
-    @media (max-width: 860px) {
-      .sticky-cta {
-        display: block; position: fixed; inset-inline: 0; bottom: 0; z-index: 40;
-        background: #050814; border-top: 1px solid rgba(255,255,255,.12);
-        padding: .65rem 1rem calc(.65rem + env(safe-area-inset-bottom));
-      }
-      .sticky-cta a {
-        display: block; text-align: center;
-        background: linear-gradient(90deg, var(--coral), var(--pink));
-        color: #fff; font-weight: 900; border-radius: 999px; padding: .9rem 1rem;
-      }
-      header .nav-cta { display: none; }
-      body { padding-bottom: 5rem; }
+    .sticky-cta a { display: block; text-align: center; width: 100%; }
+    @media (prefers-reduced-motion: reduce) {
+      .b, .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
+  <header>
+    <div class="nav">
       <div class="mark">מענה חכם</div>
-      <a class="nav-cta" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20(990%20%E2%82%AA)" target="_blank" rel="noopener">פיילוט · 990 ₪</a>
-    </header>
-
-    <section class="hero">
-      <div class="orb" data-speed="0.08"></div>
-      <span class="chip a" data-speed="-0.08" data-rotate="-3">24/7</span>
-      <span class="chip b" data-speed="0.1" data-rotate="4">ליד חם</span>
-      <span class="chip c" data-speed="-0.06" data-rotate="-2">העברה לאדם</span>
-      <div class="kicker">פיילוט 14 יום · ישראל</div>
-      <div class="chip-row" aria-hidden="true">
-        <span class="chip a">24/7</span>
-        <span class="chip b">ליד חם</span>
-        <span class="chip c">העברה לאדם</span>
-      </div>
-      <h1>הלקוח כתב ב־<span class="hl">21:40</span>. ענית בבוקר.</h1>
-      <p class="lead">מענה מיידי בוואטסאפ לשאלות נפוצות — ואתה מקבל רק לידים חמים ותלונות.</p>
-      <p class="icp">מספרה · קליניקה · חנות · נדל״ן · שירות שטח</p>
-      <div class="actions">
-        <a class="btn" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20(990%20%E2%82%AA)" target="_blank" rel="noopener">התחלת פיילוט 14 יום · 990 ₪</a>
-        <a class="link-quiet" href="#pricing">המסלול</a>
-      </div>
-    </section>
-  </div>
-
-  <section class="wa-strip" id="demo">
-    <div class="wa-inner">
-      <div class="sticker">דמו חי</div>
-      <div class="thread reveal">
-        <div class="b in">היי, יש תור למחר בערב?</div>
-        <div class="b out">כן — 18:30 או 19:15. מה נוח?</div>
-        <div class="b in">18:30 מעולה</div>
-        <div class="sys">↓ ליד חם הועבר אליך</div>
-      </div>
+      <a class="btn" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20(990%20%E2%82%AA)" target="_blank" rel="noopener">פיילוט 14 יום — 990 ₪</a>
     </div>
-  </section>
+  </header>
 
-  <div class="wrap">
-    <section>
-      <h2>למי כן — ולמי לא</h2>
-      <div class="for-not">
-        <div class="panel yes reveal from-right"><h3>מתאים</h3><p>מספרה, קליניקה, חנות, נדל״ן ושירות שטח עם עומס וואטסאפ — במיוחד מחוץ לשעות.</p></div>
-        <div class="panel no reveal from-left"><h3>לא מתאים</h3><p>כמעט בלי הודעות · רק פרסום ממומן · ERP כבד.</p></div>
+  <main>
+    <section class="wrap hero">
+      <div class="eyebrow reveal">לעסקים קטנים בישראל</div>
+      <h1 class="reveal">בלילה הלקוח כותב. בבוקר הוא כבר אצל המתחרה.</h1>
+      <p class="lead reveal">רוב העסקים הקטנים בישראל מפספסים לידים בוואטסאפ מחוץ לשעות העבודה. מענה אוטומטי עונה מיד לשאלות נפוצות — ומעביר אליך רק ליד חם, תלונה או משהו מורכב.</p>
+      <div class="actions reveal">
+        <a class="btn" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20(990%20%E2%82%AA)" target="_blank" rel="noopener">התחלת פיילוט 14 יום · 990 ₪</a>
+        <a class="btn btn-soft" href="#demo">כך זה נראה</a>
       </div>
     </section>
 
-    <section>
-      <h2><span class="stick">מה בפנים</span> מה מקבלים</h2>
-      <ol class="include-list">
-        <li class="reveal"><strong>מענה 24/7</strong> שעות, מחיר, מיקום, זמינות — בעברית ובטון של העסק.</li>
-        <li class="reveal"><strong>העברה לאדם</strong> ליד חם / תלונה / מורכב מגיע אליך.</li>
-        <li class="reveal"><strong>דוח שבועי</strong> שיחות, העברות, שאלות שחוזרות.</li>
-      </ol>
-      <p class="note">לא כלול: פרסום ממומן, בניית אתר, אינטגרציות ERP.</p>
-    </section>
-
-    <section id="pricing">
-      <h2><span class="stick">המסלול</span> מחירים</h2>
-      <div class="price-path">
-        <article class="price-step start reveal">
-          <div class="step-label">01 · להתחיל</div>
-          <h3>פיילוט 14 יום</h3>
-          <p class="amount">990 ₪</p>
-          <ul class="price-list">
-            <li>מענה אמיתי על המספר שלך</li>
-            <li>עץ תשובות ראשוני</li>
-            <li>העברת לידים חמים</li>
-            <li>סיכום בסוף</li>
-          </ul>
-          <p class="note">אם ממשיכים — הפיילוט נכנס למסלול המנוי.</p>
-        </article>
-        <article class="price-step reveal">
-          <div class="step-label">02 · הקמה</div>
-          <h3>הקמה חד־פעמית</h3>
-          <p class="amount">2,500 ₪</p>
-          <ul class="price-list">
-            <li>אפיון מלא</li>
-            <li>חיבור + בדיקות</li>
-            <li>עלייה לאוויר</li>
-          </ul>
-        </article>
-        <article class="price-step reveal">
-          <div class="step-label">03 · שוטף</div>
-          <h3>מנוי חודשי</h3>
-          <p class="amount">790 ₪</p>
-          <ul class="price-list">
-            <li>תחזוקה</li>
-            <li>דוח שבועי</li>
-            <li>תיקוני ניסוח</li>
-          </ul>
-        </article>
+    <section class="demo" id="demo">
+      <div class="wrap">
+        <h2 class="reveal">כך זה נראה</h2>
+        <div class="thread" id="thread" aria-label="הדגמת שיחת וואטסאפ">
+          <div class="b them" data-i="0">היי, אתם פתוחים מחר בערב?</div>
+          <div class="b us" data-i="1">כן, עד 19:00. רוצים תור?</div>
+          <div class="b them" data-i="2">אפשר ב־18:30?</div>
+          <div class="b us" data-i="3">שמתי לך. מאשרים?</div>
+          <div class="b sys" data-i="4">↓ ליד חם הועבר לבעל העסק</div>
+        </div>
       </div>
     </section>
 
-    <section>
-      <h2>איך זה עובד</h2>
-      <ol class="how-list">
-        <li class="reveal"><div><strong>וואטסאפ או פרטים</strong><span>כפתור ישיר / טופס קצר</span></div></li>
-        <li class="reveal"><div><strong>שיחת גילוי</strong><span>כמה הודעות, מי עונה, מה מציק</span></div></li>
-        <li class="reveal"><div><strong>פיילוט 14 יום</strong><span>מענה אמיתי — לא דמו</span></div></li>
-        <li class="reveal"><div><strong>החלטה + עלייה</strong><span>אישור, מקדמה, הקמה תוך 3–5 ימים</span></div></li>
-      </ol>
+    <section class="block">
+      <div class="wrap">
+        <h2 class="reveal">למי כן / למי לא</h2>
+        <div class="two">
+          <div class="card reveal">
+            <h3>כן</h3>
+            <p>מספרה, קליניקה, חנות, נדל״ן, שירות שטח — כל עסק שמקבל הרבה הודעות וואטסאפ ואין מי שעונה בזמן.</p>
+          </div>
+          <div class="card reveal">
+            <h3>לא</h3>
+            <p>אם כמעט אין הודעות, או אם אתה מחפש רק פרסום ממומן בלי מענה אמיתי — זה לא בשבילך.</p>
+          </div>
+        </div>
+        <p class="muted reveal" style="margin-top:1rem">אם הלקוח מחכה יותר מדי — הוא עובר הלאה.</p>
+      </div>
     </section>
 
-    <section id="contact">
-      <div class="contact">
-        <h2>נתחיל?</h2>
-        <p class="lead">הכפתור פותח וואטסאפ אליי. בלי המלצות מזויפות.</p>
-        <p><a class="btn" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20(990%20%E2%82%AA)" target="_blank" rel="noopener">התחלת פיילוט 14 יום · 990 ₪</a></p>
-        <form id="lead-form">
+    <section class="block">
+      <div class="wrap">
+        <h2 class="reveal">מה מקבלים</h2>
+        <ol class="clean">
+          <li class="reveal"><span class="n">1</span><span>שעות, מחיר, מיקום, זמינות — נענים 24/7 בעברית ובטון של העסק. בלי שתחזיק את הטלפון ביד.</span></li>
+          <li class="reveal"><span class="n">2</span><span>ליד שרוצה לקבוע / לקנות / להתלונן — לא נשאר בבוט. מגיע אליך.</span></li>
+          <li class="reveal"><span class="n">3</span><span>פעם בשבוע: כמה שיחות, כמה הגיעו אליך, מה שואלים שוב ושוב.</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="wrap">
+        <h2 class="reveal">מתחילים בפיילוט. לא במנוי עיוור.</h2>
+        <div class="price-path">
+          <div class="price-main reveal">
+            <strong>פיילוט 14 יום — 990 ₪</strong>
+            <span class="muted">מענה אמיתי על העסק שלך. אם ממשיכים — עוברים למסלול הרגיל.</span>
+          </div>
+          <div class="price-sub reveal">אחרי הפיילוט: הקמה 2,500 ₪ · מנוי 790 ₪ לחודש</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="wrap">
+        <h2 class="reveal">איך זה עובד</h2>
+        <ol class="clean">
+          <li class="reveal"><span class="n">1</span><span>כותבים בוואטסאפ או משאירים פרטים</span></li>
+          <li class="reveal"><span class="n">2</span><span>שיחת גילוי קצרה</span></li>
+          <li class="reveal"><span class="n">3</span><span>פיילוט 14 יום על המספר שלך</span></li>
+          <li class="reveal"><span class="n">4</span><span>החלטה — ואם ממשיכים, הקמה תוך 3–5 ימים</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="close" id="go">
+      <div class="wrap">
+        <h2 class="reveal" style="margin:0 0 .6rem;font-size:clamp(1.7rem,4vw,2.3rem);letter-spacing:-.02em">רוצה לבדוק על העסק שלך?</h2>
+        <p class="muted reveal">שולחים פרטים קצרים. חוזרים לשיחת גילוי — ורק אז מתחילים פיילוט אם זה מתאים.</p>
+        <div class="actions reveal">
+          <a class="btn" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20(990%20%E2%82%AA)" target="_blank" rel="noopener">התחלת פיילוט 14 יום · 990 ₪</a>
+        </div>
+        <form id="lead-form" class="reveal">
           <label>שם<input id="name" required autocomplete="name" /></label>
           <label>עסק<input id="business" required /></label>
           <label>טלפון לחזרה<input id="phone" required autocomplete="tel" /></label>
-          <label>הערה<textarea id="note" rows="3"></textarea></label>
-          <button class="btn-outline" type="submit">שליחת פרטים בוואטסאפ</button>
+          <label>הערה<textarea id="note" rows="3" placeholder="כמה הודעות ביום בערך?"></textarea></label>
+          <button class="btn" type="submit" style="width:100%">בקשת פיילוט</button>
         </form>
-        <p class="note">משני: <a href="mailto:ilya.lidor@gmail.com">ilya.lidor@gmail.com</a></p>
+        <p class="muted reveal" style="margin-top:1rem;font-size:.9rem">
+          משני: <a href="mailto:ilya.lidor@gmail.com">ilya.lidor@gmail.com</a><br />
+          בלי המלצות מזויפות. בלי מספרי מכירות מומצאים. רק ההצעה.
+        </p>
       </div>
     </section>
+  </main>
 
-    <footer>© <span id="y"></span> מענה חכם</footer>
-  </div>
-
-  <div class="sticky-cta"><a href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20(990%20%E2%82%AA)" target="_blank" rel="noopener">התחלת פיילוט · 990 ₪</a></div>
+  <div class="wrap"><footer>© <span id="y"></span> מענה חכם</footer></div>
+  <div class="sticky-cta"><a class="btn" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20(990%20%E2%82%AA)" target="_blank" rel="noopener">התחלת פיילוט 14 יום · 990 ₪</a></div>
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
@@ -391,71 +309,48 @@
         'שם: ' + document.getElementById('name').value.trim(),
         'עסק: ' + document.getElementById('business').value.trim(),
         'טלפון: ' + document.getElementById('phone').value.trim(),
-        'הערה: ' + (document.getElementById('note').value.trim() || '—')].join('\n');
+        'הערה: ' + (document.getElementById('note').value.trim() || '—')].join('\\n');
       window.open('https://wa.me/972533379700?text=' + encodeURIComponent(text), '_blank');
     });
-  </script>
 
-  <script>
     (function () {
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var reveals = document.querySelectorAll('.reveal');
+      var bubbles = Array.prototype.slice.call(document.querySelectorAll('#thread .b'));
+      var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+
+      function showBubbles() {
+        bubbles.forEach(function (b) {
+          var i = parseInt(b.getAttribute('data-i'), 10) || 0;
+          setTimeout(function () { b.classList.add('show'); }, reduce ? 0 : i * 160);
+        });
+      }
+
       if (reduce) {
+        bubbles.forEach(function (b) { b.classList.add('show'); });
         reveals.forEach(function (el) { el.classList.add('is-in'); });
         return;
       }
+
       if ('IntersectionObserver' in window) {
         var io = new IntersectionObserver(function (entries) {
-          entries.forEach(function (e) {
-            if (e.isIntersecting) e.target.classList.add('is-in');
+          entries.forEach(function (en) {
+            if (!en.isIntersecting) return;
+            if (en.target.id === 'thread' || en.target.classList.contains('thread')) {
+              showBubbles();
+            } else {
+              en.target.classList.add('is-in');
+            }
+            io.unobserve(en.target);
           });
-        }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+        }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
         reveals.forEach(function (el) { io.observe(el); });
+        var thread = document.getElementById('thread');
+        if (thread) io.observe(thread);
       } else {
+        showBubbles();
         reveals.forEach(function (el) { el.classList.add('is-in'); });
       }
-
-      var hero = document.querySelector('.hero');
-      var parallax = Array.prototype.slice.call(document.querySelectorAll('.hero > .chip[data-speed], .hero > .orb[data-speed], .scroll-fx-layer [data-speed]'));
-      var steps = Array.prototype.slice.call(document.querySelectorAll('#pricing .price-step'));
-      var pricing = document.getElementById('pricing');
-      var ticking = false;
-
-      function onScroll() {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () {
-          var y = window.scrollY || 0;
-          var heroInView = true;
-          if (hero) {
-            var hr = hero.getBoundingClientRect();
-            heroInView = hr.bottom > 0 && hr.top < window.innerHeight;
-          }
-          if (heroInView) {
-            parallax.forEach(function (el) {
-              var s = parseFloat(el.getAttribute('data-speed') || '0');
-              s = Math.max(-0.12, Math.min(0.12, s));
-              var rot = el.getAttribute('data-rotate');
-              var ty = y * s;
-              el.style.transform = rot
-                ? 'translate3d(0,' + ty + 'px,0) rotate(' + rot + 'deg)'
-                : 'translate3d(0,' + ty + 'px,0)';
-            });
-          }
-          if (pricing && steps.length) {
-            var r = pricing.getBoundingClientRect();
-            var total = Math.max(1, r.height - window.innerHeight * 0.3);
-            var prog = Math.min(1, Math.max(0, (-r.top + window.innerHeight * 0.25) / total));
-            var idx = Math.min(steps.length - 1, Math.floor(prog * steps.length));
-            steps.forEach(function (s, i) { s.classList.toggle('is-active', i === idx); });
-          }
-          ticking = false;
-        });
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
     })();
   </script>
-
 </body>
 </html>
