@@ -99,6 +99,19 @@
       background: transparent; color: var(--muted); font-size: .8rem; padding: .35rem 0;
     }
     section { padding: 4rem 0; }
+    .proof-strip {
+      display: grid; gap: 0; margin-top: 1.5rem;
+      border-top: 1px solid var(--line);
+    }
+    .proof-strip div {
+      padding: 1.1rem 0; border-bottom: 1px solid var(--line);
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif; color: var(--muted);
+    }
+    .proof-strip strong {
+      display: block; color: var(--ink); margin-bottom: .3rem;
+      font-family: Georgia, "Times New Roman", serif; font-size: 1.15rem;
+    }
+
     .pull {
       margin: 2rem 0 0;
       padding: 1rem 1.1rem;
@@ -119,18 +132,7 @@
       font-family: "Segoe UI", Tahoma, Arial, sans-serif; font-weight: 700;
     }
     .for-not p { margin: 0; color: var(--ink); font-size: .98rem; }
-    .proof-strip {
-      display: grid; gap: 0; margin-top: 1.5rem;
-      border-top: 1px solid var(--line);
-    }
-    .proof-strip div {
-      padding: 1.1rem 0; border-bottom: 1px solid var(--line);
-      font-family: "Segoe UI", Tahoma, Arial, sans-serif; color: var(--muted);
-    }
-    .proof-strip strong {
-      display: block; color: var(--ink); margin-bottom: .3rem;
-      font-family: Georgia, "Times New Roman", serif; font-size: 1.15rem;
-    }
+
     h2 {
       font-size: clamp(1.8rem, 4vw, 2.4rem);
       line-height: 1.15; margin: 0 0 1rem; max-width: 16ch;
@@ -225,7 +227,7 @@
   <div class="wrap">
     <div class="topbar">
       <span class="mark">ו· מענה בוואטסאפ</span>
-      <a class="nav-cta link-quiet" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20%D7%9C%D7%9E%D7%A2%D7%A0%D7%94%20%D7%90%D7%95%D7%98%D7%95%D7%9E%D7%98%D7%99%20%D7%91%D7%95%D7%95%D7%90%D7%98%D7%A1%D7%90%D7%A4%20%28990%20%E2%82%AA%29" target="_blank" rel="noopener">התחלת פיילוט</a>
+      <a class="nav-cta link-quiet" href="https://wa.me/972533379700?text=%D7%94%D7%99%D7%99%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A4%D7%99%D7%99%D7%9C%D7%95%D7%98%2014%20%D7%99%D7%95%D7%9D%20%D7%9C%D7%9E%D7%A2%D7%A0%D7%94%20%D7%90%D7%95%D7%98%D7%95%D7%9E%D7%98%D7%99%20%D7%91%D7%95%D7%95%D7%90%D7%98%D7%A1%D7%90%D7%A4%20%28990%20%E2%82%AA%29" target="_blank" rel="noopener">התחלת פיילוט · 990 ₪</a>
     </div>
 
     <section class="hero">
@@ -290,6 +292,11 @@
         </li>
       </ol>
       <p class="note">לא כלול: פרסום ממומן, בניית אתר, אינטגרציות ERP כבדות.</p>
+      <div class="proof-strip" aria-label="ראיות בלי המלצות מזויפות">
+        <div><strong>ראיה 1 · הטון</strong>הבועות למעלה — דוגמה למענה קצר בעברית, לא ציטוט מלקוח מדומה.</div>
+        <div><strong>ראיה 2 · הדוח השבועי</strong>כמה שיחות נכנסו, כמה הועברו לאדם, ומה השאלות שחוזרות.</div>
+        <div><strong>ראיה 3 · הגבול</strong>מה לא כלול כתוב במפורש — בלי הבטחות מנופחות.</div>
+      </div>
     </div>
   </section>
 
@@ -307,7 +314,6 @@
             <li>העברה ללידים חמים</li>
             <li>סיכום בסוף הפיילוט</li>
           </ul>
-          <p>מענה אמיתי על המספר שלך — לא דמו.</p>
           <p>אם ממשיכים — הפיילוט נכנס למסלול המנוי (הקמה + 790 ₪ לחודש).</p>
         </article>
         <div class="path-rule" aria-hidden="true"></div>
@@ -340,7 +346,7 @@
     <div class="wrap">
       <h2>איך זה עובד</h2>
       <ol class="how-list">
-        <li><div><strong>פרטים</strong><span>שם, עסק, וואטסאפ.</span></div></li>
+        <li><div><strong>וואטסאפ או פרטים</strong><span>כפתור וואטסאפ, או שם/עסק/טלפון בטופס.</span></div></li>
         <li><div><strong>שיחת גילוי</strong><span>כמה הודעות ביום, מי עונה, מה מציק.</span></div></li>
         <li><div><strong>פיילוט 14 יום</strong><span>מענה אמיתי — לא דמו במצגת.</span></div></li>
         <li><div><strong>החלטה ועלייה לאוויר</strong><span>אישור קצר + מקדמה, הקמה תוך 3–5 ימים.</span></div></li>
